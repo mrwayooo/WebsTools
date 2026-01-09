@@ -135,11 +135,11 @@
 <div class="container">
     <h1>WebsTools Hub</h1>
     
-    <div class="tabs">
-        <div class="tab-btn active" onclick="openTab(event, 'qr-tool')">QR Code</div>
-        <div class="tab-btn" onclick="openTab(event, 'yt-tool')">YouTube</div>
-        <div class="tab-btn" onclick="openTab(event, 'pass-tool')">Password</div>
-    </div>
+   <div class="tabs">
+    <div class="tab-btn active" onclick="openTab(this, 'qr-tool')">QR Code</div>
+    <div class="tab-btn" onclick="openTab(this, 'yt-tool')">YouTube</div>
+    <div class="tab-btn" onclick="openTab(this, 'pass-tool')">Password</div>
+</div>
 
     <div id="qr-tool" class="tool-content active">
         <input type="text" id="qrInput" placeholder="Enter URL or Text">
@@ -170,16 +170,21 @@
     /* --- 2. JavaScript (Logic) --- */
 
     // ฟังก์ชันสลับ Tab (แก้ Error Uncaught ReferenceError)
-    function openTab(evt, tabId) {
-        const contents = document.querySelectorAll('.tool-content');
-        contents.forEach(c => c.classList.remove('active'));
+   function openTab(element, tabId) {
+    // 1. ซ่อนทุกหน้า
+    const contents = document.querySelectorAll('.tool-content');
+    contents.forEach(c => c.classList.remove('active'));
 
-        const tabs = document.querySelectorAll('.tab-btn');
-        tabs.forEach(t => t.classList.remove('active'));
+    // 2. เอาสีปุ่ม active ออกจากทุกปุ่ม
+    const tabs = document.querySelectorAll('.tab-btn');
+    tabs.forEach(t => t.classList.remove('active'));
 
-        document.getElementById(tabId).classList.add('active');
-        evt.currentTarget.classList.add('active');
-    }
+    // 3. แสดงหน้าเลือกล่าสุด
+    document.getElementById(tabId).classList.add('active');
+
+    // 4. ใส่สีปุ่มให้กับปุ่มที่เพิ่งคลิก (ใช้ element ที่ส่งมาจาก this)
+    element.classList.add('active');
+}
 
     // สร้าง QR Code
     function genQR() {
