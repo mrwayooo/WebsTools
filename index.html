@@ -139,6 +139,7 @@
     <div class="tab-btn active" onclick="openTab(this, 'qr-tool')">QR Code</div>
     <div class="tab-btn" onclick="openTab(this, 'yt-tool')">YouTube</div>
     <div class="tab-btn" onclick="openTab(this, 'pass-tool')">Password</div>
+    <div class="tab-btn" onclick="openTab(this, 'randpass-tool')">Random Pass</div>
 </div>
 
     <div id="qr-tool" class="tool-content active">
@@ -164,6 +165,23 @@
         <div class="strength-bar"><div id="passFill" class="strength-fill"></div></div>
         <p id="passText" style="font-size: 14px; font-weight: bold;"></p>
     </div>
+    
+    <div id="randpass-tool" class="tool-content">
+    <input type="text" id="randomPassOutput" placeholder="Your random password" readonly style="margin-bottom: 10px;">
+    <button class="btn-gen" onclick="generateRandomPassword()">Generate Password</button>
+
+    <div style="margin-top: 20px; text-align: left;">
+        <label for="passLength" style="display: block; margin-bottom: 5px;">Password Length: <span id="lengthDisplay">12</span></label>
+        <input type="range" id="passLength" min="6" max="32" value="12" oninput="document.getElementById('lengthDisplay').innerText=this.value;">
+        
+        <div style="margin-top: 15px;">
+            <input type="checkbox" id="includeUppercase" checked> <label for="includeUppercase">Include Uppercase (A-Z)</label><br>
+            <input type="checkbox" id="includeLowercase" checked> <label for="includeLowercase">Include Lowercase (a-z)</label><br>
+            <input type="checkbox" id="includeNumbers" checked> <label for="includeNumbers">Include Numbers (0-9)</label><br>
+            <input type="checkbox" id="includeSymbols" checked> <label for="includeSymbols">Include Symbols (!@#$)</label>
+        </div>
+    </div>
+</div>
 </div>
 
 <script>
@@ -216,6 +234,37 @@
             alert("ลิงก์ YouTube ไม่ถูกต้อง");
         }
     }
+
+    // ฟังก์ชันสร้างรหัสผ่านแบบสุ่ม
+function generateRandomPassword() {
+    const length = document.getElementById('passLength').value;
+    const includeUppercase = document.getElementById('includeUppercase').checked;
+    const includeLowercase = document.getElementById('includeLowercase').checked;
+    const includeNumbers = document.getElementById('includeNumbers').checked;
+    const includeSymbols = document.getElementById('includeSymbols').checked;
+
+    let characters = '';
+    if (includeUppercase) characters += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    if (includeLowercase) characters += 'abcdefghijklmnopqrstuvwxyz';
+    if (includeNumbers) characters += '0123456789';
+    if (includeSymbols) characters += '!@#$%^&*()_+{}[]|:;<>,.?/~`';
+
+    if (characters.length === 0) {
+        alert("Please select at least one character type.");
+        return;
+    }
+
+    let password = '';
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        password += characters[randomIndex];
+    }
+
+    document.getElementById('randomPassOutput').value = password;
+}
+
+// ตรวจสอบให้แน่ใจว่าฟังก์ชัน openTab ได้รับการแก้ไขแล้วตามคำแนะนำก่อนหน้านี้
+// function openTab(element, tabId) { ... }
 
     // ตรวจสอบรหัสผ่าน
     function checkPass() {
