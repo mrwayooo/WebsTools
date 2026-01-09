@@ -44,59 +44,58 @@
         /* Strength Meter */
         .strength-bar { height: 8px; background: #eee; border-radius: 5px; margin: 15px 0 5px; overflow: hidden; }
         .strength-fill { height: 100%; width: 0%; transition: 0.5s; }
-
         /* --- CSS ที่เพิ่ม Hover และ Transition --- */
 
-/* ปุ่ม Tab เมื่อเอาเมาส์ไปวาง (Hover) */
-.tab-btn:hover:not(.active) {
-    background-color: #e9ecef;
-    color: var(--primary);
-}
-
-/* ปุ่มกดหลัก (Generate) */
-.btn-main {
-    background: var(--primary);
-    color: white;
-    box-shadow: 0 4px 6px rgba(67, 97, 238, 0.2);
-}
-
-.btn-main:hover {
-    background: #3651d1; /* สีเข้มขึ้นเล็กน้อย */
-    transform: translateY(-2px); /* ลอยขึ้นเล็กน้อย */
-    box-shadow: 0 6px 12px rgba(67, 97, 238, 0.3);
-}
-
-.btn-main:active {
-    transform: translateY(0); /* กดลงเมื่อคลิก */
-}
-
-/* ปุ่มดาวน์โหลด (สีเขียว) */
-.btn-dl:hover {
-    background: #219150;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(46, 204, 113, 0.3);
-}
-
-/* ปุ่ม Copy (สีเทา) */
-.btn-copy:hover {
-    background: #5a6268;
-    transform: translateY(-2px);
-}
-
-/* Input Fields เมื่อ Hover/Focus */
-input:hover {
-    border-color: #ccd3f8;
-}
-
-input:focus {
-    border-color: var(--primary);
-    box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.1);
-}
-
-/* ใส่ Transition ให้ทุกอย่างดูนุ่มนวล */
-.tab-btn, .btn-main, .btn-dl, .btn-copy, input {
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
+        /* ปุ่ม Tab เมื่อเอาเมาส์ไปวาง (Hover) */
+        .tab-btn:hover:not(.active) {
+            background-color: #e9ecef;
+            color: var(--primary);
+        }
+        
+        /* ปุ่มกดหลัก (Generate) */
+        .btn-main {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 6px rgba(67, 97, 238, 0.2);
+        }
+        
+        .btn-main:hover {
+            background: #3651d1; /* สีเข้มขึ้นเล็กน้อย */
+            transform: translateY(-2px); /* ลอยขึ้นเล็กน้อย */
+            box-shadow: 0 6px 12px rgba(67, 97, 238, 0.3);
+        }
+        
+        .btn-main:active {
+            transform: translateY(0); /* กดลงเมื่อคลิก */
+        }
+        
+        /* ปุ่มดาวน์โหลด (สีเขียว) */
+        .btn-dl:hover {
+            background: #219150;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(46, 204, 113, 0.3);
+        }
+        
+        /* ปุ่ม Copy (สีเทา) */
+        .btn-copy:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+        
+        /* Input Fields เมื่อ Hover/Focus */
+        input:hover {
+            border-color: #ccd3f8;
+        }
+        
+        input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.1);
+        }
+        
+        /* ใส่ Transition ให้ทุกอย่างดูนุ่มนวล */
+        .tab-btn, .btn-main, .btn-dl, .btn-copy, input {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
     </style>
 </head>
 <body>
