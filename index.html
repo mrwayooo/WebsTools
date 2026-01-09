@@ -3,45 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebsTools Hub - 5 in 1</title>
+    <title>WebsTools Hub - 7 in 1</title>
     <style>
-        /* --- CSS: ออกแบบให้ทันสมัยและรองรับมือถือ --- */
         :root {
             --primary: #4361ee;
             --success: #2ecc71;
             --bg: #f8f9fa;
+            --card: #ffffff;
             --text: #2b2d42;
         }
 
         body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); display: flex; justify-content: center; min-height: 100vh; margin: 0; padding: 20px; }
-        .container { background: white; width: 100%; max-width: 480px; padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); height: fit-content; }
+        .container { background: var(--card); width: 100%; max-width: 500px; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); height: fit-content; }
         
-        h1 { text-align: center; font-size: 26px; margin-bottom: 20px; color: var(--primary); }
+        h1 { text-align: center; margin-bottom: 25px; color: var(--primary); letter-spacing: -1px; }
 
-        /* Tabs System */
-        .tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; background: #eee; padding: 5px; border-radius: 12px; margin-bottom: 20px; }
-        .tab-btn { padding: 10px; text-align: center; cursor: pointer; border-radius: 8px; font-size: 13px; font-weight: 600; color: #666; transition: 0.3s; border: none; background: none; }
-        .tab-btn.active { background: white; color: var(--primary); box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        /* Tabs Menu */
+        .tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; background: #f1f3f5; padding: 5px; border-radius: 12px; margin-bottom: 25px; }
+        .tab-btn { padding: 8px 5px; text-align: center; cursor: pointer; border-radius: 8px; font-size: 11px; font-weight: 700; color: #666; border: none; background: none; transition: 0.3s; }
+        .tab-btn.active { background: white; color: var(--primary); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
 
+        /* Tools Content */
         .tool-content { display: none; animation: fadeIn 0.3s ease; }
         .tool-content.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* UI Elements */
-        input, select { width: 100%; padding: 12px; margin: 8px 0; border: 2px solid #edf2f4; border-radius: 10px; box-sizing: border-box; outline: none; }
+        /* Inputs & Buttons */
+        input, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 2px solid #edf2f4; border-radius: 10px; box-sizing: border-box; outline: none; font-size: 15px; }
         input:focus { border-color: var(--primary); }
-        button { width: 100%; padding: 14px; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; margin-top: 10px; transition: 0.2s; }
+        button { width: 100%; padding: 14px; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; margin-top: 10px; transition: 0.2s; font-size: 15px; }
         .btn-main { background: var(--primary); color: white; }
-        .btn-main:hover { opacity: 0.9; }
         .btn-dl { background: var(--success); color: white; display: none; margin-top: 15px; }
+        .btn-copy { background: #6c757d; color: white; margin-top: 10px; }
 
+        /* Results Area */
         .result-box { text-align: center; margin-top: 20px; }
         .result-img { max-width: 100%; border-radius: 12px; border: 1px solid #eee; display: none; margin: 0 auto; }
+        .stylish-res { background: #f8f9fa; padding: 15px; border-radius: 12px; text-align: left; margin-top: 10px; border-left: 4px solid var(--primary); }
 
-        /* Password Tools */
+        /* Strength Meter */
         .strength-bar { height: 8px; background: #eee; border-radius: 5px; margin: 10px 0; overflow: hidden; }
         .strength-fill { height: 100%; width: 0%; transition: 0.5s; }
-        .options { text-align: left; font-size: 14px; margin-top: 10px; }
     </style>
 </head>
 <body>
@@ -50,145 +52,144 @@
     <h1>WebsTools Hub</h1>
     
     <div class="tabs">
-        <button class="tab-btn active" onclick="openTab(this, 'qr-tool')">QR Code</button>
-        <button class="tab-btn" onclick="openTab(this, 'yt-tool')">YouTube</button>
+        <button class="tab-btn active" onclick="openTab(this, 'qr')">QR</button>
+        <button class="tab-btn" onclick="openTab(this, 'yt')">YouTube</button>
+        <button class="tab-btn" onclick="openTab(this, 'pass-gen')">PassGen</button>
         <button class="tab-btn" onclick="openTab(this, 'pass-check')">Strength</button>
-        <button class="tab-btn" onclick="openTab(this, 'pass-gen')">Pass Gen</button>
-        <button class="tab-btn" onclick="openTab(this, 'text-tool')">Counter</button>
+        <button class="tab-btn" onclick="openTab(this, 'text')">Count</button>
+        <button class="tab-btn" onclick="openTab(this, 'stylish')">Stylish</button>
+        <button class="tab-btn" onclick="openTab(this, 'uuid')">UUID</button>
     </div>
 
-    <div id="qr-tool" class="tool-content active">
-        <input type="text" id="qrInput" placeholder="Enter URL or Text">
-        <button class="btn-main" onclick="genQR()">Generate QR</button>
+    <div id="qr" class="tool-content active">
+        <input type="text" id="qrIn" placeholder="URL or Text for QR">
+        <button class="btn-main" onclick="genQR()">Get QR Code</button>
         <div class="result-box">
             <img id="qrImg" class="result-img">
-            <button id="dlQR" class="btn-dl" onclick="downloadImg('qrImg', 'qrcode.png')">Download QR</button>
+            <button id="dlQR" class="btn-dl" onclick="dlImg('qrImg', 'qr.png')">Download QR</button>
         </div>
     </div>
 
-    <div id="yt-tool" class="tool-content">
-        <input type="text" id="ytInput" placeholder="Paste YouTube Link">
+    <div id="yt" class="tool-content">
+        <input type="text" id="ytIn" placeholder="Paste YouTube Link">
         <button class="btn-main" onclick="genYT()">Get Thumbnail</button>
         <div class="result-box">
             <img id="ytImg" class="result-img">
-            <button id="dlYT" class="btn-dl" onclick="downloadImg('ytImg', 'thumbnail.jpg')">Download Thumbnail</button>
+            <button id="dlYT" class="btn-dl" onclick="dlImg('ytImg', 'thumb.jpg')">Download Image</button>
+        </div>
+    </div>
+
+    <div id="pass-gen" class="tool-content">
+        <input type="text" id="pgOut" readonly placeholder="Click generate">
+        <button class="btn-main" onclick="genPass()">Generate Password</button>
+        <div style="font-size: 13px; margin-top: 10px;">
+            Length: <input type="range" id="pLen" min="6" max="32" value="12" oninput="document.getElementById('lVal').innerText=this.value"> <span id="lVal">12</span>
         </div>
     </div>
 
     <div id="pass-check" class="tool-content">
-        <input type="password" id="checkInp" placeholder="Type to check..." oninput="checkStrength()">
-        <div class="strength-bar"><div id="strengthFill" class="strength-fill"></div></div>
-        <p id="strengthTxt" style="font-size: 14px; font-weight: bold;"></p>
+        <input type="password" id="psIn" placeholder="Check strength..." oninput="checkPS()">
+        <div class="strength-bar"><div id="psFill" class="strength-fill"></div></div>
+        <p id="psTxt" style="font-size: 14px; font-weight: bold;"></p>
     </div>
 
-    <div id="pass-gen" class="tool-content">
-        <input type="text" id="genOut" readonly placeholder="Result Password">
-        <button class="btn-main" onclick="generatePass()">Generate Random Password</button>
-        <div class="options">
-            Length: <span id="lenVal">12</span>
-            <input type="range" id="passLen" min="6" max="30" value="12" oninput="document.getElementById('lenVal').innerText=this.value">
-            <input type="checkbox" id="up" checked> Uppercase | <input type="checkbox" id="num" checked> Numbers
+    <div id="text" class="tool-content">
+        <textarea id="txIn" placeholder="Paste text here..." oninput="countTx()" style="height: 100px;"></textarea>
+        <p style="font-size: 14px;">Words: <span id="wCount">0</span> | Chars: <span id="cCount">0</span></p>
+    </div>
+
+    <div id="stylish" class="tool-content">
+        <input type="text" id="stIn" placeholder="Type normal text..." oninput="genStylish()">
+        <div class="stylish-res">
+            <small>Upside Down:</small> <div id="stFlip" style="font-weight: bold;"></div><br>
+            <small>Bubble:</small> <div id="stBubb" style="font-weight: bold;"></div>
         </div>
     </div>
 
-    <div id="text-tool" class="tool-content">
-        <textarea id="txtInp" placeholder="Paste text here..." oninput="countText()" style="width:100%; height:100px; padding:10px; border-radius:10px; border:2px solid #edf2f4;"></textarea>
-        <p style="font-size: 14px;">Chars: <span id="cCount">0</span> | Words: <span id="wCount">0</span></p>
+    <div id="uuid" class="tool-content">
+        <input type="text" id="uuOut" readonly placeholder="Result UUID">
+        <button class="btn-main" onclick="genUUID()">Generate UUID v4</button>
+        <button class="btn-copy" onclick="copyU()">Copy to Clipboard</button>
     </div>
 </div>
 
 <script>
-    /* --- JavaScript Logic (วางไว้ล่างสุดเพื่อให้ทำงานได้แน่นอน) --- */
-
-    // แก้ไข Error: openTab is not defined
-    function openTab(btn, tabId) {
-        // ซ่อนทุกอัน
-        const contents = document.querySelectorAll('.tool-content');
-        contents.forEach(c => c.classList.remove('active'));
-        // เอาสีปุ่มออก
-        const tabs = document.querySelectorAll('.tab-btn');
-        tabs.forEach(t => t.classList.remove('active'));
-        // เปิดอันที่เลือก
-        document.getElementById(tabId).classList.add('active');
+    // --- System Logic ---
+    function openTab(btn, id) {
+        document.querySelectorAll('.tool-content').forEach(c => c.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
         btn.classList.add('active');
     }
 
-    // QR Code
+    // --- Tools Logic ---
     function genQR() {
-        const val = document.getElementById('qrInput').value;
-        if(!val) return alert("Please enter text");
+        const val = document.getElementById('qrIn').value;
+        if(!val) return alert("Enter something!");
         const img = document.getElementById('qrImg');
-        const dl = document.getElementById('dlQR');
         img.src = `https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(val)}`;
         img.style.display = "block";
-        img.onload = () => dl.style.display = "block";
+        document.getElementById('dlQR').style.display = "block";
     }
 
-    // YouTube
     function genYT() {
-        const url = document.getElementById('ytInput').value;
-        let id = "";
-        if(url.includes("v=")) id = url.split("v=")[1].substring(0, 11);
-        else if(url.includes("be/")) id = url.split("be/")[1].substring(0, 11);
-        
-        if(id) {
-            const img = document.getElementById('ytImg');
-            const dl = document.getElementById('dlYT');
-            img.src = `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
-            img.style.display = "block";
-            img.onload = () => dl.style.display = "block";
-        } else { alert("Link invalid"); }
+        const url = document.getElementById('ytIn').value;
+        let id = url.includes("v=") ? url.split("v=")[1].substring(0, 11) : url.split("be/")[1]?.substring(0, 11);
+        if(!id) return alert("Invalid Link");
+        const img = document.getElementById('ytImg');
+        img.src = `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
+        img.style.display = "block";
+        document.getElementById('dlYT').style.display = "block";
     }
 
-    // Download Function
-    async function downloadImg(id, name) {
-        const img = document.getElementById(id);
-        const res = await fetch(img.src);
+    async function dlImg(id, name) {
+        const res = await fetch(document.getElementById(id).src);
         const blob = await res.blob();
-        const url = window.URL.createObjectURL(blob);
         const a = document.createElement("a");
-        a.href = url; a.download = name;
-        document.body.appendChild(a); a.click();
-        document.body.removeChild(a);
+        a.href = URL.createObjectURL(blob); a.download = name; a.click();
     }
 
-    // Password Strength
-    function checkStrength() {
-        const p = document.getElementById('checkInp').value;
-        const fill = document.getElementById('strengthFill');
-        const txt = document.getElementById('strengthTxt');
-        let s = 0;
-        if(p.length > 8) s++;
-        if(/[A-Z]/.test(p)) s++;
-        if(/[0-9]/.test(p)) s++;
-        if(/[^A-Za-z0-9]/.test(p)) s++;
-        
-        const colors = ["#ff4d4d", "#ffa64d", "#ffdb4d", "#2ecc71"];
-        const labels = ["Too Weak", "Fair", "Good", "Strong"];
-        fill.style.width = (p.length === 0 ? 0 : (s+1)*25) + "%";
-        fill.style.background = colors[s];
-        txt.innerText = p ? labels[s] : "";
-        txt.style.color = colors[s];
-    }
-
-    // Random Password
-    function generatePass() {
-        const len = document.getElementById('passLen').value;
-        let charset = "abcdefghijklmnopqrstuvwxyz";
-        if(document.getElementById('up').checked) charset += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        if(document.getElementById('num').checked) charset += "0123456789";
+    function genPass() {
+        const len = document.getElementById('pLen').value;
+        const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
         let res = "";
         for(let i=0; i<len; i++) res += charset.charAt(Math.floor(Math.random() * charset.length));
-        document.getElementById('genOut').value = res;
+        document.getElementById('pgOut').value = res;
     }
 
-    // Text Counter
-    function countText() {
-        const t = document.getElementById('txtInp').value;
+    function checkPS() {
+        const p = document.getElementById('psIn').value;
+        const fill = document.getElementById('psFill');
+        let s = 0;
+        if(p.length > 8) s++; if(/[A-Z]/.test(p)) s++; if(/[0-9]/.test(p)) s++; if(/[^A-Za-z0-9]/.test(p)) s++;
+        const colors = ["#ff4d4d", "#ffa64d", "#ffdb4d", "#2ecc71"];
+        fill.style.width = p ? (s+1)*25 + "%" : "0%";
+        fill.style.background = colors[s];
+        document.getElementById('psTxt').innerText = p ? ["Weak", "Fair", "Good", "Strong"][s] : "";
+    }
+
+    function countTx() {
+        const t = document.getElementById('txIn').value.trim();
         document.getElementById('cCount').innerText = t.length;
-        document.getElementById('wCount').innerText = t.trim() ? t.trim().split(/\s+/).length : 0;
+        document.getElementById('wCount').innerText = t ? t.split(/\s+/).length : 0;
+    }
+
+    function genStylish() {
+        const t = document.getElementById('stIn').value.toLowerCase();
+        const flipM = {"a":"ɐ","b":"q","c":"ɔ","d":"p","e":"ǝ","f":"ɟ","g":"ƃ","h":"ɥ","i":"ᴉ","j":"ɾ","k":"ʞ","l":"l","m":"ɯ","n":"u","o":"o","p":"d","q":"b","r":"ɹ","s":"s","t":"ʇ","u":"n","v":"ʌ","w":"ʍ","x":"x","y":"ʎ","z":"z"};
+        const bubbM = {"a":"ⓐ","b":"ⓑ","c":"ⓒ","d":"ⓓ","e":"ⓔ","f":"ⓕ","g":"ⓖ","h":"ⓗ","i":"ⓘ","j":"ⓙ","k":"ⓚ","l":"ⓛ","m":"ⓜ","n":"ⓝ","o":"ⓞ","p":"ⓟ","q":"ⓠ","r":"ⓡ","s":"ⓢ","t":"ⓣ","u":"ⓤ","v":"ⓥ","w":"ⓦ","x":"ⓧ","y":"ⓨ","z":"ⓩ"};
+        document.getElementById('stFlip').innerText = t.split('').map(c => flipM[c] || c).reverse().join('');
+        document.getElementById('stBubb').innerText = t.split('').map(c => bubbM[c] || c).join('');
+    }
+
+    function genUUID() {
+        document.getElementById('uuOut').value = ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c => (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
+    }
+
+    function copyU() {
+        const v = document.getElementById('uuOut').value;
+        if(v) { navigator.clipboard.writeText(v); alert("UUID Copied!"); }
     }
 </script>
-
 </body>
 </html>
