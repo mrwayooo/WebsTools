@@ -1,4 +1,47 @@
-<div id="qr-tool" class="tool-content active">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebsTools Hub</title>
+    <style>
+        :root { --primary: #007bff; --success: #28a745; --dark: #333; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; display: flex; justify-content: center; padding: 20px; }
+        .container { background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 100%; max-width: 500px; }
+        
+        /* Tab System */
+        .tabs { display: flex; gap: 5px; margin-bottom: 20px; border-bottom: 2px solid #eee; }
+        .tab-btn { padding: 10px; cursor: pointer; border: none; background: none; font-weight: bold; color: #666; }
+        .tab-btn.active { color: var(--primary); border-bottom: 2px solid var(--primary); }
+        .tool-content { display: none; }
+        .tool-content.active { display: block; }
+
+        /* Common UI */
+        h2 { margin-top: 0; color: var(--dark); }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 2px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; margin-top: 5px; }
+        .btn-gen { background: var(--primary); color: white; }
+        .btn-down { background: var(--success); color: white; margin-top: 10px; display: none; }
+        
+        /* Password Strength Meter */
+        .strength-bar { height: 10px; background: #eee; border-radius: 5px; margin-top: 10px; overflow: hidden; }
+        .strength-fill { height: 100%; width: 0%; transition: 0.5s; }
+        
+        .result-img { max-width: 100%; margin-top: 20px; border-radius: 8px; display: none; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>WebsTools Hub</h1>
+    
+    <div class="tabs">
+        <div class="tab-btn active" onclick="openTab('qr-tool')">QR Code</div>
+        <div class="tab-btn" onclick="openTab('yt-tool')">YouTube</div>
+        <div class="tab-btn" onclick="openTab('pass-tool')">Password</div>
+    </div>
+
+   <div id="qr-tool" class="tool-content active">
     <h2>QR Generator</h2>
     <input type="text" id="qrInput" placeholder="Enter URL or Text">
     <button class="btn-gen" onclick="genQR()">Generate QR</button>
@@ -75,3 +118,6 @@
     
     // อย่าลืมฟังก์ชัน openTab และ checkPass ตัวเดิมนะครับ
 </script>
+
+</body>
+</html>
