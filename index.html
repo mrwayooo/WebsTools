@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebsTools Hub - 6 in 1</title>
+    <title>WebsTools Hub - Final Version</title>
     <style>
         :root {
             --primary: #4361ee;
@@ -18,84 +18,58 @@
         
         h1 { text-align: center; margin-bottom: 25px; color: var(--primary); letter-spacing: -1px; }
 
-        /* Tabs Menu - ปรับให้เหลือ 6 ช่องเรียงสวยๆ */
+        /* Tabs Menu */
         .tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; background: #f1f3f5; padding: 6px; border-radius: 12px; margin-bottom: 25px; }
-        .tab-btn { padding: 12px 5px; text-align: center; cursor: pointer; border-radius: 8px; font-size: 12px; font-weight: 700; color: #666; border: none; background: none; transition: 0.3s; }
-        .tab-btn.active { background: white; color: var(--primary); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        
+        .tab-btn { 
+            padding: 12px 5px; text-align: center; cursor: pointer; border-radius: 8px; 
+            font-size: 12px; font-weight: 700; color: #666; border: none; background: none; 
+            transition: all 0.2s ease; 
+        }
 
-        /* Tools Content */
+        /* Hover Effect for Tabs */
+        .tab-btn:hover:not(.active) { background-color: #e9ecef; color: var(--primary); transform: translateY(-1px); }
+        .tab-btn.active { background: white; color: var(--primary); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+
         .tool-content { display: none; animation: fadeIn 0.3s ease; }
         .tool-content.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Inputs & Buttons */
-        input { width: 100%; padding: 14px; margin: 10px 0; border: 2px solid #edf2f4; border-radius: 10px; box-sizing: border-box; outline: none; font-size: 15px; }
-        input:focus { border-color: var(--primary); }
-        button { width: 100%; padding: 14px; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; margin-top: 10px; transition: 0.2s; font-size: 15px; }
-        .btn-main { background: var(--primary); color: white; }
+        /* Inputs & Buttons with Hover */
+        input { 
+            width: 100%; padding: 14px; margin: 10px 0; border: 2px solid #edf2f4; 
+            border-radius: 10px; box-sizing: border-box; outline: none; font-size: 15px;
+            transition: all 0.2s ease;
+        }
+        input:hover { border-color: #ccd3f8; }
+        input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.1); }
+
+        button { 
+            width: 100%; padding: 14px; border: none; border-radius: 10px; 
+            cursor: pointer; font-weight: bold; margin-top: 10px; font-size: 15px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-main { background: var(--primary); color: white; box-shadow: 0 4px 6px rgba(67, 97, 238, 0.1); }
+        .btn-main:hover { background: #3651d1; transform: translateY(-2px); box-shadow: 0 6px 12px rgba(67, 97, 238, 0.2); }
+        .btn-main:active { transform: translateY(0); }
+
         .btn-dl { background: var(--success); color: white; display: none; margin-top: 15px; }
+        .btn-dl:hover { background: #219150; transform: translateY(-2px); box-shadow: 0 6px 12px rgba(46, 204, 113, 0.2); }
+
         .btn-copy { background: #6c757d; color: white; margin-top: 10px; }
+        .btn-copy:hover { background: #5a6268; transform: translateY(-2px); }
 
         /* Results Area */
         .result-box { text-align: center; margin-top: 20px; }
-        .result-img { max-width: 100%; border-radius: 12px; border: 1px solid #eee; display: none; margin: 0 auto; }
+        .result-img { max-width: 100%; border-radius: 12px; border: 1px solid #eee; display: none; margin: 0 auto; transition: 0.3s; }
+        .result-img:hover { transform: scale(1.02); }
+
         .stylish-res { background: #f8f9fa; padding: 15px; border-radius: 12px; text-align: left; margin-top: 10px; border-left: 4px solid var(--primary); }
 
         /* Strength Meter */
         .strength-bar { height: 8px; background: #eee; border-radius: 5px; margin: 15px 0 5px; overflow: hidden; }
-        .strength-fill { height: 100%; width: 0%; transition: 0.5s; }
-        /* --- CSS ที่เพิ่ม Hover และ Transition --- */
-
-        /* ปุ่ม Tab เมื่อเอาเมาส์ไปวาง (Hover) */
-        .tab-btn:hover:not(.active) {
-            background-color: #e9ecef;
-            color: var(--primary);
-        }
-        
-        /* ปุ่มกดหลัก (Generate) */
-        .btn-main {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 4px 6px rgba(67, 97, 238, 0.2);
-        }
-        
-        .btn-main:hover {
-            background: #3651d1; /* สีเข้มขึ้นเล็กน้อย */
-            transform: translateY(-2px); /* ลอยขึ้นเล็กน้อย */
-            box-shadow: 0 6px 12px rgba(67, 97, 238, 0.3);
-        }
-        
-        .btn-main:active {
-            transform: translateY(0); /* กดลงเมื่อคลิก */
-        }
-        
-        /* ปุ่มดาวน์โหลด (สีเขียว) */
-        .btn-dl:hover {
-            background: #219150;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(46, 204, 113, 0.3);
-        }
-        
-        /* ปุ่ม Copy (สีเทา) */
-        .btn-copy:hover {
-            background: #5a6268;
-            transform: translateY(-2px);
-        }
-        
-        /* Input Fields เมื่อ Hover/Focus */
-        input:hover {
-            border-color: #ccd3f8;
-        }
-        
-        input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.1);
-        }
-        
-        /* ใส่ Transition ให้ทุกอย่างดูนุ่มนวล */
-        .tab-btn, .btn-main, .btn-dl, .btn-copy, input {
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+        .strength-fill { height: 100%; width: 0%; transition: width 0.5s ease; }
     </style>
 </head>
 <body>
@@ -104,8 +78,8 @@
     <h1>WebsTools Hub</h1>
     
     <div class="tabs">
-        <button class="tab-btn active" onclick="openTab(this, 'qr')">QRGen</button>
-        <button class="tab-btn" onclick="openTab(this, 'yt')">YouTubeThumbnails Downloader</button>
+        <button class="tab-btn active" onclick="openTab(this, 'qr')">QR</button>
+        <button class="tab-btn" onclick="openTab(this, 'yt')">YouTube</button>
         <button class="tab-btn" onclick="openTab(this, 'pass-gen')">PassGen</button>
         <button class="tab-btn" onclick="openTab(this, 'pass-check')">Strength</button>
         <button class="tab-btn" onclick="openTab(this, 'stylish')">Stylish</button>
@@ -131,24 +105,25 @@
     </div>
 
     <div id="pass-gen" class="tool-content">
-        <input type="text" id="pgOut" readonly placeholder="Click generate">
+        <input type="text" id="pgOut" readonly placeholder="Result Password">
         <button class="btn-main" onclick="genPass()">Generate Password</button>
-        <div style="font-size: 13px; margin-top: 10px; text-align: center;">
-            Length: <input type="range" id="pLen" min="6" max="32" value="12" oninput="document.getElementById('lVal').innerText=this.value"> <span id="lVal" style="font-weight:bold; color:var(--primary);">12</span>
+        <div style="font-size: 13px; margin-top: 15px; text-align: center;">
+            Length: <input type="range" id="pLen" min="6" max="32" value="12" oninput="document.getElementById('lVal').innerText=this.value" style="width: 70%; vertical-align: middle;"> 
+            <span id="lVal" style="font-weight:bold; color:var(--primary); margin-left: 10px;">12</span>
         </div>
     </div>
 
     <div id="pass-check" class="tool-content">
         <input type="password" id="psIn" placeholder="Check strength..." oninput="checkPS()">
         <div class="strength-bar"><div id="psFill" class="strength-fill"></div></div>
-        <p id="psTxt" style="font-size: 14px; font-weight: bold; text-align: center;"></p>
+        <p id="psTxt" style="font-size: 14px; font-weight: bold; text-align: center; margin-top: 10px;"></p>
     </div>
 
     <div id="stylish" class="tool-content">
         <input type="text" id="stIn" placeholder="Type normal text..." oninput="genStylish()">
         <div class="stylish-res">
-            <small style="color:#666">Upside Down:</small> <div id="stFlip" style="font-weight: bold; margin-bottom: 10px; word-break: break-all;"></div>
-            <small style="color:#666">Bubble Text:</small> <div id="stBubb" style="font-weight: bold; word-break: break-all;"></div>
+            <small style="color:#666">Upside Down:</small> <div id="stFlip" style="font-weight: bold; margin-bottom: 10px; word-break: break-all;">(Result)</div>
+            <small style="color:#666">Bubble Text:</small> <div id="stBubb" style="font-weight: bold; word-break: break-all;">(Result)</div>
         </div>
     </div>
 
@@ -160,7 +135,6 @@
 </div>
 
 <script>
-    // System: Tab Switcher
     function openTab(btn, id) {
         document.querySelectorAll('.tool-content').forEach(c => c.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
@@ -168,10 +142,9 @@
         btn.classList.add('active');
     }
 
-    // Tools Logic
     function genQR() {
         const val = document.getElementById('qrIn').value;
-        if(!val) return alert("Enter something!");
+        if(!val) return alert("Enter text!");
         const img = document.getElementById('qrImg');
         img.src = `https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(val)}`;
         img.style.display = "block";
@@ -189,10 +162,12 @@
     }
 
     async function dlImg(id, name) {
-        const res = await fetch(document.getElementById(id).src);
-        const blob = await res.blob();
-        const a = document.createElement("a");
-        a.href = URL.createObjectURL(blob); a.download = name; a.click();
+        try {
+            const res = await fetch(document.getElementById(id).src);
+            const blob = await res.blob();
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(blob); a.download = name; a.click();
+        } catch(e) { alert("Error downloading. Right click image instead."); }
     }
 
     function genPass() {
@@ -212,14 +187,15 @@
         fill.style.width = p ? (s+1)*25 + "%" : "0%";
         fill.style.background = colors[s];
         document.getElementById('psTxt').innerText = p ? ["Weak", "Fair", "Good", "Strong"][s] : "";
+        document.getElementById('psTxt').style.color = colors[s];
     }
 
     function genStylish() {
         const t = document.getElementById('stIn').value.toLowerCase();
         const flipM = {"a":"ɐ","b":"q","c":"ɔ","d":"p","e":"ǝ","f":"ɟ","g":"ƃ","h":"ɥ","i":"ᴉ","j":"ɾ","k":"ʞ","l":"l","m":"ɯ","n":"u","o":"o","p":"d","q":"b","r":"ɹ","s":"s","t":"ʇ","u":"n","v":"ʌ","w":"ʍ","x":"x","y":"ʎ","z":"z"};
         const bubbM = {"a":"ⓐ","b":"ⓑ","c":"ⓒ","d":"ⓓ","e":"ⓔ","f":"ⓕ","g":"ⓖ","h":"ⓗ","i":"ⓘ","j":"ⓙ","k":"ⓚ","l":"ⓛ","m":"ⓜ","n":"ⓝ","o":"ⓞ","p":"ⓟ","q":"ⓠ","r":"ⓡ","s":"ⓢ","t":"ⓣ","u":"ⓤ","v":"ⓥ","w":"ⓦ","x":"ⓧ","y":"ⓨ","z":"ⓩ"};
-        document.getElementById('stFlip').innerText = t.split('').map(c => flipM[c] || c).reverse().join('');
-        document.getElementById('stBubb').innerText = t.split('').map(c => bubbM[c] || c).join('');
+        document.getElementById('stFlip').innerText = t.split('').map(c => flipM[c] || c).reverse().join('') || "(Result)";
+        document.getElementById('stBubb').innerText = t.split('').map(c => bubbM[c] || c).join('') || "(Result)";
     }
 
     function genUUID() {
