@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebsTools Hub - 7 in 1</title>
+    <title>WebsTools Hub - 6 in 1</title>
     <style>
         :root {
             --primary: #4361ee;
@@ -14,13 +14,13 @@
         }
 
         body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); display: flex; justify-content: center; min-height: 100vh; margin: 0; padding: 20px; }
-        .container { background: var(--card); width: 100%; max-width: 500px; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); height: fit-content; }
+        .container { background: var(--card); width: 100%; max-width: 460px; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); height: fit-content; }
         
         h1 { text-align: center; margin-bottom: 25px; color: var(--primary); letter-spacing: -1px; }
 
-        /* Tabs Menu */
-        .tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; background: #f1f3f5; padding: 5px; border-radius: 12px; margin-bottom: 25px; }
-        .tab-btn { padding: 8px 5px; text-align: center; cursor: pointer; border-radius: 8px; font-size: 11px; font-weight: 700; color: #666; border: none; background: none; transition: 0.3s; }
+        /* Tabs Menu - ปรับให้เหลือ 6 ช่องเรียงสวยๆ */
+        .tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; background: #f1f3f5; padding: 6px; border-radius: 12px; margin-bottom: 25px; }
+        .tab-btn { padding: 12px 5px; text-align: center; cursor: pointer; border-radius: 8px; font-size: 12px; font-weight: 700; color: #666; border: none; background: none; transition: 0.3s; }
         .tab-btn.active { background: white; color: var(--primary); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
 
         /* Tools Content */
@@ -29,7 +29,7 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
         /* Inputs & Buttons */
-        input, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 2px solid #edf2f4; border-radius: 10px; box-sizing: border-box; outline: none; font-size: 15px; }
+        input { width: 100%; padding: 14px; margin: 10px 0; border: 2px solid #edf2f4; border-radius: 10px; box-sizing: border-box; outline: none; font-size: 15px; }
         input:focus { border-color: var(--primary); }
         button { width: 100%; padding: 14px; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; margin-top: 10px; transition: 0.2s; font-size: 15px; }
         .btn-main { background: var(--primary); color: white; }
@@ -42,7 +42,7 @@
         .stylish-res { background: #f8f9fa; padding: 15px; border-radius: 12px; text-align: left; margin-top: 10px; border-left: 4px solid var(--primary); }
 
         /* Strength Meter */
-        .strength-bar { height: 8px; background: #eee; border-radius: 5px; margin: 10px 0; overflow: hidden; }
+        .strength-bar { height: 8px; background: #eee; border-radius: 5px; margin: 15px 0 5px; overflow: hidden; }
         .strength-fill { height: 100%; width: 0%; transition: 0.5s; }
     </style>
 </head>
@@ -56,7 +56,6 @@
         <button class="tab-btn" onclick="openTab(this, 'yt')">YouTube</button>
         <button class="tab-btn" onclick="openTab(this, 'pass-gen')">PassGen</button>
         <button class="tab-btn" onclick="openTab(this, 'pass-check')">Strength</button>
-        <button class="tab-btn" onclick="openTab(this, 'text')">Count</button>
         <button class="tab-btn" onclick="openTab(this, 'stylish')">Stylish</button>
         <button class="tab-btn" onclick="openTab(this, 'uuid')">UUID</button>
     </div>
@@ -82,27 +81,22 @@
     <div id="pass-gen" class="tool-content">
         <input type="text" id="pgOut" readonly placeholder="Click generate">
         <button class="btn-main" onclick="genPass()">Generate Password</button>
-        <div style="font-size: 13px; margin-top: 10px;">
-            Length: <input type="range" id="pLen" min="6" max="32" value="12" oninput="document.getElementById('lVal').innerText=this.value"> <span id="lVal">12</span>
+        <div style="font-size: 13px; margin-top: 10px; text-align: center;">
+            Length: <input type="range" id="pLen" min="6" max="32" value="12" oninput="document.getElementById('lVal').innerText=this.value"> <span id="lVal" style="font-weight:bold; color:var(--primary);">12</span>
         </div>
     </div>
 
     <div id="pass-check" class="tool-content">
         <input type="password" id="psIn" placeholder="Check strength..." oninput="checkPS()">
         <div class="strength-bar"><div id="psFill" class="strength-fill"></div></div>
-        <p id="psTxt" style="font-size: 14px; font-weight: bold;"></p>
-    </div>
-
-    <div id="text" class="tool-content">
-        <textarea id="txIn" placeholder="Paste text here..." oninput="countTx()" style="height: 100px;"></textarea>
-        <p style="font-size: 14px;">Words: <span id="wCount">0</span> | Chars: <span id="cCount">0</span></p>
+        <p id="psTxt" style="font-size: 14px; font-weight: bold; text-align: center;"></p>
     </div>
 
     <div id="stylish" class="tool-content">
         <input type="text" id="stIn" placeholder="Type normal text..." oninput="genStylish()">
         <div class="stylish-res">
-            <small>Upside Down:</small> <div id="stFlip" style="font-weight: bold;"></div><br>
-            <small>Bubble:</small> <div id="stBubb" style="font-weight: bold;"></div>
+            <small style="color:#666">Upside Down:</small> <div id="stFlip" style="font-weight: bold; margin-bottom: 10px; word-break: break-all;"></div>
+            <small style="color:#666">Bubble Text:</small> <div id="stBubb" style="font-weight: bold; word-break: break-all;"></div>
         </div>
     </div>
 
@@ -114,7 +108,7 @@
 </div>
 
 <script>
-    // --- System Logic ---
+    // System: Tab Switcher
     function openTab(btn, id) {
         document.querySelectorAll('.tool-content').forEach(c => c.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
@@ -122,7 +116,7 @@
         btn.classList.add('active');
     }
 
-    // --- Tools Logic ---
+    // Tools Logic
     function genQR() {
         const val = document.getElementById('qrIn').value;
         if(!val) return alert("Enter something!");
@@ -166,12 +160,6 @@
         fill.style.width = p ? (s+1)*25 + "%" : "0%";
         fill.style.background = colors[s];
         document.getElementById('psTxt').innerText = p ? ["Weak", "Fair", "Good", "Strong"][s] : "";
-    }
-
-    function countTx() {
-        const t = document.getElementById('txIn').value.trim();
-        document.getElementById('cCount').innerText = t.length;
-        document.getElementById('wCount').innerText = t ? t.split(/\s+/).length : 0;
     }
 
     function genStylish() {
