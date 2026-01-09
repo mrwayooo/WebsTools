@@ -1,87 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebsTools Hub</title>
-    <style>
-        :root { --primary: #007bff; --success: #28a745; --dark: #333; }
-        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; display: flex; justify-content: center; padding: 20px; }
-        .container { background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 100%; max-width: 500px; }
-        
-        /* Tab System */
-        .tabs { display: flex; gap: 5px; margin-bottom: 20px; border-bottom: 2px solid #eee; }
-        .tab-btn { padding: 10px; cursor: pointer; border: none; background: none; font-weight: bold; color: #666; }
-        .tab-btn.active { color: var(--primary); border-bottom: 2px solid var(--primary); }
-        .tool-content { display: none; }
-        .tool-content.active { display: block; }
-
-        /* Common UI */
-        h2 { margin-top: 0; color: var(--dark); }
-        input { width: 100%; padding: 12px; margin: 10px 0; border: 2px solid #ddd; border-radius: 8px; box-sizing: border-box; }
-        button { width: 100%; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; margin-top: 5px; }
-        .btn-gen { background: var(--primary); color: white; }
-        .btn-down { background: var(--success); color: white; margin-top: 10px; display: none; }
-        
-        /* Password Strength Meter */
-        .strength-bar { height: 10px; background: #eee; border-radius: 5px; margin-top: 10px; overflow: hidden; }
-        .strength-fill { height: 100%; width: 0%; transition: 0.5s; }
-        
-        .result-img { max-width: 100%; margin-top: 20px; border-radius: 8px; display: none; }
-    </style>
-</head>
-<body>
-
-<div class="container">
-    <h1>WebsTools Hub</h1>
-    
-    <div class="tabs">
-        <div class="tab-btn active" onclick="openTab('qr-tool')">QR Code</div>
-        <div class="tab-btn" onclick="openTab('yt-tool')">YouTube</div>
-        <div class="tab-btn" onclick="openTab('pass-tool')">Password</div>
-    </div>
-
-    <div id="qr-tool" class="tool-content active">
-        <h2>QR Generator</h2>
-        <input type="text" id="qrInput" placeholder="Enter URL or Text">
-        <button class="btn-gen" onclick="genQR()">Generate QR</button>
+<div id="qr-tool" class="tool-content active">
+    <h2>QR Generator</h2>
+    <input type="text" id="qrInput" placeholder="Enter URL or Text">
+    <button class="btn-gen" onclick="genQR()">Generate QR</button>
+    <div id="qr-result-box">
         <img id="qrImg" class="result-img">
+        <button id="dlQR" class="btn-down" onclick="downloadImg('qrImg', 'qrcode.png')">Download QR</button>
     </div>
+</div>
 
-    <div id="yt-tool" class="tool-content">
-        <h2>YouTube Thumbnail</h2>
-        <input type="text" id="ytInput" placeholder="Paste YouTube Link">
-        <button class="btn-gen" onclick="genYT()">Get Thumbnail</button>
+<div id="yt-tool" class="tool-content">
+    <h2>YouTube Thumbnail</h2>
+    <input type="text" id="ytInput" placeholder="Paste YouTube Link">
+    <button class="btn-gen" onclick="genYT()">Get Thumbnail</button>
+    <div id="yt-result-box">
         <img id="ytImg" class="result-img">
-    </div>
-
-    <div id="pass-tool" class="tool-content">
-        <h2>Password Strength</h2>
-        <input type="password" id="passInput" placeholder="Type password..." oninput="checkPass()">
-        <div class="strength-bar"><div id="passFill" class="strength-fill"></div></div>
-        <p id="passText" style="font-size: 0.8em; margin-top: 5px;"></p>
+        <button id="dlYT" class="btn-down" onclick="downloadImg('ytImg', 'thumbnail.jpg')">Download Thumbnail</button>
     </div>
 </div>
 
 <script>
-    // Tab Logic
-    function openTab(tabId) {
-        document.querySelectorAll('.tool-content').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        document.getElementById(tabId).classList.add('active');
-        event.currentTarget.classList.add('active');
-    }
-
-    // 1. QR Code Logic (API)
+    // --- ฟังก์ชันหลักสำหรับการสร้างรูป (ปรับปรุงให้โชว์ปุ่มดาวน์โหลด) ---
     function genQR() {
         const val = document.getElementById('qrInput').value;
         if(!val) return alert("Please enter text");
         const img = document.getElementById('qrImg');
-        img.src = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(val)}`;
+        const dlBtn = document.getElementById('dlQR');
+        
+        img.src = `https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${encodeURIComponent(val)}`;
         img.style.display = "block";
+        img.onload = () => dlBtn.style.display = "block"; // โชว์ปุ่มเมื่อรูปโหลดเสร็จ
     }
 
-    // 2. YouTube Thumbnail Logic (String Manipulation)
     function genYT() {
         const url = document.getElementById('ytInput').value;
         let videoId = "";
@@ -90,39 +39,39 @@
         
         if(videoId) {
             const img = document.getElementById('ytImg');
+            const dlBtn = document.getElementById('dlYT');
             img.src = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
             img.style.display = "block";
+            img.onload = () => dlBtn.style.display = "block";
         } else {
             alert("Invalid YouTube Link");
         }
     }
 
-    // 3. Password Logic (Regex)
-    function checkPass() {
-        const pass = document.getElementById('passInput').value;
-        const fill = document.getElementById('passFill');
-        const text = document.getElementById('passText');
-        let score = 0;
-
-        if (pass.length > 6) score++;
-        if (/[A-Z]/.test(pass)) score++;
-        if (/[0-9]/.test(pass)) score++;
-        if (/[^A-Za-z0-9]/.test(pass)) score++;
-
-        const colors = ["#ff4d4d", "#ffa64d", "#ffdb4d", "#2ecc71"];
-        const labels = ["Weak", "Fair", "Good", "Strong"];
-        
-        if(pass === "") {
-            fill.style.width = "0%";
-            text.innerText = "";
-        } else {
-            fill.style.width = (score + 1) * 20 + "%";
-            fill.style.backgroundColor = colors[score] || colors[0];
-            text.innerText = "Strength: " + (labels[score] || labels[0]);
-            text.style.color = colors[score] || colors[0];
+    // --- ฟังก์ชัน Download อเนกประสงค์ (ใช้ได้กับทุกรูป) ---
+    async function downloadImg(imgId, fileName) {
+        const img = document.getElementById(imgId);
+        try {
+            // ดึงข้อมูลรูปภาพเป็น Blob
+            const response = await fetch(img.src);
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            
+            // สร้างลิงก์ชั่วคราวเพื่อดาวน์โหลด
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            
+            // ล้างหน่วยความจำ
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        } catch (err) {
+            alert("Download failed. Please right-click and 'Save Image As'");
+            console.error(err);
         }
     }
+    
+    // อย่าลืมฟังก์ชัน openTab และ checkPass ตัวเดิมนะครับ
 </script>
-
-</body>
-</html>
