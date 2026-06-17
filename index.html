@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WebsTools Hub - Final Version</title>
-    <style> 
+    <style>
         :root {
             --primary: #4361ee;
             --success: #2ecc71;
@@ -27,7 +27,6 @@
             transition: all 0.2s ease; 
         }
 
-        /* Hover Effect for Tabs */
         .tab-btn:hover:not(.active) { background-color: #e9ecef; color: var(--primary); transform: translateY(-1px); }
         .tab-btn.active { background: white; color: var(--primary); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
 
@@ -35,14 +34,14 @@
         .tool-content.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Inputs & Buttons with Hover */
-        input { 
+        /* Inputs, Select & Buttons */
+        input, select { 
             width: 100%; padding: 14px; margin: 10px 0; border: 2px solid #edf2f4; 
             border-radius: 10px; box-sizing: border-box; outline: none; font-size: 15px;
-            transition: all 0.2s ease;
+            transition: all 0.2s ease; background: white;
         }
-        input:hover { border-color: #ccd3f8; }
-        input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.1); }
+        input:hover, select:hover { border-color: #ccd3f8; }
+        input:focus, select:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.1); }
 
         button { 
             width: 100%; padding: 14px; border: none; border-radius: 10px; 
@@ -64,10 +63,9 @@
         .result-box { text-align: center; margin-top: 20px; }
         .result-img { max-width: 100%; border-radius: 12px; border: 1px solid #eee; display: none; margin: 0 auto; transition: 0.3s; }
         .result-img:hover { transform: scale(1.02); }
+        .result-img.avatar { border-radius: 50%; max-width: 150px; } /* ปรับให้โลโก้ช่องเป็นวงกลม */
 
         .stylish-res { background: #f8f9fa; padding: 15px; border-radius: 12px; text-align: left; margin-top: 10px; border-left: 4px solid var(--primary); }
-
-        /* Strength Meter */
         .strength-bar { height: 8px; background: #eee; border-radius: 5px; margin: 15px 0 5px; overflow: hidden; }
         .strength-fill { height: 100%; width: 0%; transition: width 0.5s ease; }
     </style>
@@ -96,11 +94,15 @@
     </div>
 
     <div id="yt" class="tool-content">
-        <input type="text" id="ytIn" placeholder="Paste YouTube Link">
-        <button class="btn-main" onclick="genYT()">Get Thumbnail</button>
+        <select id="ytType">
+            <option value="thumb">Video Thumbnail (ภาพปกคลิป)</option>
+            <option value="logo">Channel Logo (โลโก้ช่อง/แฮนเดิล เช่น @username)</option>
+        </select>
+        <input type="text" id="ytIn" placeholder="Paste Video Link or Channel @Handle">
+        <button class="btn-main" onclick="genYT()">Get Media</button>
         <div class="result-box">
             <img id="ytImg" class="result-img">
-            <button id="dlYT" class="btn-dl" onclick="dlImg('ytImg', 'thumb.jpg')">Download Image</button>
+            <button id="dlYT" class="btn-dl" onclick="dlImg('ytImg', 'youtube_media.jpg')">Download Image</button>
         </div>
     </div>
 
@@ -151,14 +153,36 @@
         document.getElementById('dlQR').style.display = "block";
     }
 
+    // ฟังก์ชัน YouTube อัปเดตใหม่รองรับดึงภาพโลโก้ช่อง
     function genYT() {
-        const url = document.getElementById('ytIn').value;
-        let id = url.includes("v=") ? url.split("v=")[1].substring(0, 11) : url.split("be/")[1]?.substring(0, 11);
-        if(!id) return alert("Invalid Link");
+        const input = document.getElementById('ytIn').value.trim();
+        const type = document.getElementById('ytType').value;
         const img = document.getElementById('ytImg');
-        img.src = `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
+        const dlBtn = document.getElementById('dlYT');
+
+        if(!input) return alert("Please enter YouTube link or handle");
+
+        img.classList.remove('avatar'); // รีเซ็ตทรงวงกลมก่อน
+
+        if (type === "thumb") {
+            // ดึง Thumbnail ของวิดีโอ
+            let id = input.includes("v=") ? input.split("v=")[1].substring(0, 11) : input.split("be/")[1]?.substring(0, 11);
+            if(!id) return alert("Invalid Video Link");
+            img.src = `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
+        } else {
+            // ดึง Logo ของช่องผ่านระบบ Handle ของ YouTube (@username)
+            let handle = input;
+            if(input.includes("youtube.com/")) {
+                handle = input.split("youtube.com/")[1].replace('@', '');
+            } else {
+                handle = input.replace('@', '');
+            }
+            img.classList.add('avatar'); // ทำรูปโปรไฟล์เป็นวงกลม
+            img.src = `https://unavatar.io/youtube/${handle}`;
+        }
+
         img.style.display = "block";
-        document.getElementById('dlYT').style.display = "block";
+        dlBtn.style.display = "block";
     }
 
     async function dlImg(id, name) {
