@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebsTools Hub - Final Version</title>
+    <title>WebsTools Hub - 7 Tools Version</title>
     <style>
         :root {
             --primary: #4361ee;
@@ -14,16 +14,16 @@
         }
 
         body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); display: flex; justify-content: center; min-height: 100vh; margin: 0; padding: 20px; }
-        .container { background: var(--card); width: 100%; max-width: 460px; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); height: fit-content; }
+        .container { background: var(--card); width: 100%; max-width: 480px; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); height: fit-content; }
         
         h1 { text-align: center; margin-bottom: 25px; color: var(--primary); letter-spacing: -1px; }
 
-        /* Tabs Menu */
-        .tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; background: #f1f3f5; padding: 6px; border-radius: 12px; margin-bottom: 25px; }
+        /* Tabs Menu - ปรับเป็น 4 คอลัมน์เพื่อให้รองรับ 7 ปุ่มได้สวยงาม */
+        .tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; background: #f1f3f5; padding: 6px; border-radius: 12px; margin-bottom: 25px; }
         
         .tab-btn { 
-            padding: 12px 5px; text-align: center; cursor: pointer; border-radius: 8px; 
-            font-size: 12px; font-weight: 700; color: #666; border: none; background: none; 
+            padding: 10px 2px; text-align: center; cursor: pointer; border-radius: 8px; 
+            font-size: 11px; font-weight: 700; color: #666; border: none; background: none; 
             transition: all 0.2s ease; 
         }
 
@@ -34,14 +34,14 @@
         .tool-content.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Inputs, Select & Buttons */
-        input, select { 
+        /* Inputs & Buttons */
+        input { 
             width: 100%; padding: 14px; margin: 10px 0; border: 2px solid #edf2f4; 
             border-radius: 10px; box-sizing: border-box; outline: none; font-size: 15px;
-            transition: all 0.2s ease; background: white;
+            transition: all 0.2s ease;
         }
-        input:hover, select:hover { border-color: #ccd3f8; }
-        input:focus, select:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.1); }
+        input:hover { border-color: #ccd3f8; }
+        input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.1); }
 
         button { 
             width: 100%; padding: 14px; border: none; border-radius: 10px; 
@@ -63,7 +63,7 @@
         .result-box { text-align: center; margin-top: 20px; }
         .result-img { max-width: 100%; border-radius: 12px; border: 1px solid #eee; display: none; margin: 0 auto; transition: 0.3s; }
         .result-img:hover { transform: scale(1.02); }
-        .result-img.avatar { border-radius: 50%; max-width: 150px; } /* ปรับให้โลโก้ช่องเป็นวงกลม */
+        .result-img.avatar { border-radius: 50%; max-width: 160px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); } 
 
         .stylish-res { background: #f8f9fa; padding: 15px; border-radius: 12px; text-align: left; margin-top: 10px; border-left: 4px solid var(--primary); }
         .strength-bar { height: 8px; background: #eee; border-radius: 5px; margin: 15px 0 5px; overflow: hidden; }
@@ -77,7 +77,8 @@
     
     <div class="tabs">
         <button class="tab-btn active" onclick="openTab(this, 'qr')">QR</button>
-        <button class="tab-btn" onclick="openTab(this, 'yt')">YouTube</button>
+        <button class="tab-btn" onclick="openTab(this, 'yt')">YT Thumb</button>
+        <button class="tab-btn" onclick="openTab(this, 'yt-logo')">YT Logo</button>
         <button class="tab-btn" onclick="openTab(this, 'pass-gen')">PassGen</button>
         <button class="tab-btn" onclick="openTab(this, 'pass-check')">Strength</button>
         <button class="tab-btn" onclick="openTab(this, 'stylish')">Stylish</button>
@@ -94,15 +95,20 @@
     </div>
 
     <div id="yt" class="tool-content">
-        <select id="ytType">
-            <option value="thumb">Video Thumbnail (ภาพปกคลิป)</option>
-            <option value="logo">Channel Logo (โลโก้ช่อง/แฮนเดิล เช่น @username)</option>
-        </select>
-        <input type="text" id="ytIn" placeholder="Paste Video Link or Channel @Handle">
-        <button class="btn-main" onclick="genYT()">Get Media</button>
+        <input type="text" id="ytIn" placeholder="Paste YouTube Video Link">
+        <button class="btn-main" onclick="genYT()">Get Thumbnail</button>
         <div class="result-box">
             <img id="ytImg" class="result-img">
-            <button id="dlYT" class="btn-dl" onclick="dlImg('ytImg', 'youtube_media.jpg')">Download Image</button>
+            <button id="dlYT" class="btn-dl" onclick="dlImg('ytImg', 'thumb.jpg')">Download Image</button>
+        </div>
+    </div>
+
+    <div id="yt-logo" class="tool-content">
+        <input type="text" id="logoIn" placeholder="Paste Channel Link or @Handle">
+        <button class="btn-main" onclick="genYTLogo()">Get Channel Logo</button>
+        <div class="result-box">
+            <img id="logoImg" class="result-img avatar">
+            <button id="dlLogo" class="btn-dl" onclick="dlImg('logoImg', 'channel_logo.jpg')">Download Logo</button>
         </div>
     </div>
 
@@ -137,6 +143,7 @@
 </div>
 
 <script>
+    // System: Tab Switcher
     function openTab(btn, id) {
         document.querySelectorAll('.tool-content').forEach(c => c.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
@@ -144,6 +151,7 @@
         btn.classList.add('active');
     }
 
+    // Tools Logic
     function genQR() {
         const val = document.getElementById('qrIn').value;
         if(!val) return alert("Enter text!");
@@ -153,34 +161,31 @@
         document.getElementById('dlQR').style.display = "block";
     }
 
-    // ฟังก์ชัน YouTube อัปเดตใหม่รองรับดึงภาพโลโก้ช่อง
     function genYT() {
-        const input = document.getElementById('ytIn').value.trim();
-        const type = document.getElementById('ytType').value;
+        const url = document.getElementById('ytIn').value;
+        let id = url.includes("v=") ? url.split("v=")[1].substring(0, 11) : url.split("be/")[1]?.substring(0, 11);
+        if(!id) return alert("Invalid Link");
         const img = document.getElementById('ytImg');
-        const dlBtn = document.getElementById('dlYT');
+        img.src = `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
+        img.style.display = "block";
+        document.getElementById('dlYT').style.display = "block";
+    }
 
-        if(!input) return alert("Please enter YouTube link or handle");
+    // ฟังก์ชันแท็บใหม่: ดึงโลโก้ช่อง YouTube
+    function genYTLogo() {
+        const input = document.getElementById('logoIn').value.trim();
+        const img = document.getElementById('logoImg');
+        const dlBtn = document.getElementById('dlLogo');
+        if(!input) return alert("Please enter handle or link");
 
-        img.classList.remove('avatar'); // รีเซ็ตทรงวงกลมก่อน
-
-        if (type === "thumb") {
-            // ดึง Thumbnail ของวิดีโอ
-            let id = input.includes("v=") ? input.split("v=")[1].substring(0, 11) : input.split("be/")[1]?.substring(0, 11);
-            if(!id) return alert("Invalid Video Link");
-            img.src = `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
+        let handle = input;
+        if(input.includes("youtube.com/")) {
+            handle = input.split("youtube.com/")[1].replace('@', '');
         } else {
-            // ดึง Logo ของช่องผ่านระบบ Handle ของ YouTube (@username)
-            let handle = input;
-            if(input.includes("youtube.com/")) {
-                handle = input.split("youtube.com/")[1].replace('@', '');
-            } else {
-                handle = input.replace('@', '');
-            }
-            img.classList.add('avatar'); // ทำรูปโปรไฟล์เป็นวงกลม
-            img.src = `https://unavatar.io/youtube/${handle}`;
+            handle = input.replace('@', '');
         }
 
+        img.src = `https://unavatar.io/youtube/${handle}`;
         img.style.display = "block";
         dlBtn.style.display = "block";
     }
