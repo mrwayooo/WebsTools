@@ -3,78 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebsTools Hub - Media Converter & Utilities</title>
+    <title>WebsTools Hub - 8 Tools Version</title>
     <style>
         :root {
             --primary: #4361ee;
-            --primary-hover: #3651d1;
             --success: #2ecc71;
-            --success-hover: #219150;
-            --danger: #e63946;
-            --danger-hover: #d62828;
             --bg: #f8f9fa;
             --card: #ffffff;
             --text: #2b2d42;
-            --muted: #6c757d;
-            --border: #edf2f4;
-            --border-hover: #ccd3f8;
         }
 
-        * { box-sizing: border-box; }
-
-        body { 
-            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
-            background: var(--bg); 
-            color: var(--text); 
-            display: flex; 
-            justify-content: center; 
-            min-height: 100vh; 
-            margin: 0; 
-            padding: 20px; 
-        }
-
-        .container { 
-            background: var(--card); 
-            width: 100%; 
-            max-width: 520px; 
-            padding: 30px; 
-            border-radius: 20px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08); 
-            height: fit-content; 
-        }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); display: flex; justify-content: center; min-height: 100vh; margin: 0; padding: 20px; }
+        .container { background: var(--card); width: 100%; max-width: 480px; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); height: fit-content; }
         
-        h1 { 
-            text-align: center; 
-            margin-top: 0;
-            margin-bottom: 25px; 
-            color: var(--primary); 
-            letter-spacing: -0.5px; 
-            font-size: 26px;
-        }
+        h1 { text-align: center; margin-bottom: 25px; color: var(--primary); letter-spacing: -1px; }
 
-        /* Tabs Menu - 4 Columns grid for 8 tools (2 rows of 4) */
-        .tabs { 
-            display: grid; 
-            grid-template-columns: repeat(4, 1fr); 
-            gap: 6px; 
-            background: #f1f3f5; 
-            padding: 6px; 
-            border-radius: 12px; 
-            margin-bottom: 25px; 
-        }
+        /* Tabs Menu - ปรับเป็น 4 คอลัมน์เพื่อให้รองรับ 7 ปุ่มได้สวยงาม */
+        .tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; background: #f1f3f5; padding: 6px; border-radius: 12px; margin-bottom: 25px; }
         
         .tab-btn { 
-            padding: 10px 2px; 
-            text-align: center; 
-            cursor: pointer; 
-            border-radius: 8px; 
-            font-size: 11px; 
-            font-weight: 700; 
-            color: #666; 
-            border: none; 
-            background: none; 
+            padding: 10px 2px; text-align: center; cursor: pointer; border-radius: 8px; 
+            font-size: 11px; font-weight: 700; color: #666; border: none; background: none; 
             transition: all 0.2s ease; 
-            user-select: none;
         }
 
         .tab-btn:hover:not(.active) { background-color: #e9ecef; color: var(--primary); transform: translateY(-1px); }
@@ -85,46 +35,29 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
         /* Inputs & Buttons */
-        input[type="text"], input[type="password"] { 
-            width: 100%; 
-            padding: 14px; 
-            margin: 10px 0; 
-            border: 2px solid var(--border); 
-            border-radius: 10px; 
-            outline: none; 
-            font-size: 15px;
+        input { 
+            width: 100%; padding: 14px; margin: 10px 0; border: 2px solid #edf2f4; 
+            border-radius: 10px; box-sizing: border-box; outline: none; font-size: 15px;
             transition: all 0.2s ease;
         }
-        input[type="text"]:hover, input[type="password"]:hover { border-color: var(--border-hover); }
-        input[type="text"]:focus, input[type="password"]:focus { 
-            border-color: var(--primary); 
-            box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.1); 
-        }
+        input:hover { border-color: #ccd3f8; }
+        input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.1); }
 
         button { 
-            width: 100%; 
-            padding: 14px; 
-            border: none; 
-            border-radius: 10px; 
-            cursor: pointer; 
-            font-weight: bold; 
-            margin-top: 10px; 
-            font-size: 15px;
+            width: 100%; padding: 14px; border: none; border-radius: 10px; 
+            cursor: pointer; font-weight: bold; margin-top: 10px; font-size: 15px;
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .btn-main { background: var(--primary); color: white; box-shadow: 0 4px 6px rgba(67, 97, 238, 0.1); }
-        .btn-main:hover { background: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 6px 12px rgba(67, 97, 238, 0.2); }
+        .btn-main:hover { background: #3651d1; transform: translateY(-2px); box-shadow: 0 6px 12px rgba(67, 97, 238, 0.2); }
         .btn-main:active { transform: translateY(0); }
 
         .btn-dl { background: var(--success); color: white; display: none; margin-top: 15px; }
-        .btn-dl:hover { background: var(--success-hover); transform: translateY(-2px); box-shadow: 0 6px 12px rgba(46, 204, 113, 0.2); }
+        .btn-dl:hover { background: #219150; transform: translateY(-2px); box-shadow: 0 6px 12px rgba(46, 204, 113, 0.2); }
 
         .btn-copy { background: #6c757d; color: white; margin-top: 10px; }
         .btn-copy:hover { background: #5a6268; transform: translateY(-2px); }
-
-        .btn-danger { background: var(--danger); color: white; }
-        .btn-danger:hover { background: var(--danger-hover); transform: translateY(-2px); }
 
         /* Results Area */
         .result-box { text-align: center; margin-top: 20px; }
@@ -135,204 +68,28 @@
         .stylish-res { background: #f8f9fa; padding: 15px; border-radius: 12px; text-align: left; margin-top: 10px; border-left: 4px solid var(--primary); }
         .strength-bar { height: 8px; background: #eee; border-radius: 5px; margin: 15px 0 5px; overflow: hidden; }
         .strength-fill { height: 100%; width: 0%; transition: width 0.5s ease; }
-
-        /* Media Converter Specific Styles */
-        .dropzone {
-            border: 2px dashed #b8c1ec;
-            background: #f8faff;
-            border-radius: 12px;
-            padding: 24px 16px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            margin: 10px 0;
+        /* Theme Colors tool */
+        .th-field { margin-top: 14px; }
+        .th-field label { font-size: 13px; font-weight: 700; }
+        .th-row { display: flex; gap: 8px; align-items: center; }
+        .th-row input[type="color"] { width: 52px; height: 46px; padding: 3px; margin: 10px 0; flex: none; cursor: pointer; }
+        .th-row input[type="text"] { flex: 1; min-width: 0; font-family: monospace; text-transform: uppercase; }
+        .th-row button { width: auto; margin: 0; padding: 12px 14px; }
+        .th-row input.invalid { border-color: #e74c3c; box-shadow: 0 0 0 4px rgba(231, 76, 60, 0.1); }
+        .th-msg { display: block; min-height: 16px; color: #e74c3c; font-size: 12px; }
+        .th-status { min-height: 20px; margin: 8px 0 0; font-size: 13px; font-weight: 700; text-align: center; }
+        .th-status.ok { color: #219150; }
+        .th-status.err { color: #e74c3c; }
+        #thOut { width: 100%; box-sizing: border-box; margin-top: 10px; padding: 12px; border: 2px solid #edf2f4; border-radius: 10px; font: 13px/1.5 monospace; resize: none; background: #f8f9fa; color: var(--text); }
+        .th-preview { margin-top: 20px; padding: 18px; border: 2px solid var(--th-stroke, #3045AA); border-radius: 14px; background: var(--th-bg, #F4F6FE); transition: background 0.2s ease, border-color 0.2s ease; }
+        .th-card { padding: 18px; text-align: center; border: 4px solid var(--th-stroke, #3045AA); border-radius: 12px; background: var(--th-main, #4361EE); transition: background 0.2s ease, border-color 0.2s ease; }
+        .th-title { margin: 0 0 12px; font-size: 28px; line-height: 1.2; color: #fff; -webkit-text-stroke: 1.5px var(--th-text, #20243A); paint-order: stroke fill; }
+        @supports not (-webkit-text-stroke: 1px #000) {
+            .th-title { text-shadow: -1px -1px 0 var(--th-text), 1px -1px 0 var(--th-text), -1px 1px 0 var(--th-text), 1px 1px 0 var(--th-text); }
         }
-        .dropzone:hover, .dropzone.dragover {
-            border-color: var(--primary);
-            background: #eef2ff;
-            transform: scale(1.01);
-        }
-        .dropzone-icon {
-            font-size: 32px;
-            color: var(--primary);
-            margin-bottom: 8px;
-        }
-        .dropzone-text {
-            font-size: 14px;
-            font-weight: 600;
-            color: #333;
-        }
-        .dropzone-sub {
-            font-size: 12px;
-            color: #777;
-            margin-top: 4px;
-        }
-
-        .media-card {
-            background: #f8f9fa;
-            border: 1px solid #e9ecef;
-            border-radius: 12px;
-            padding: 14px;
-            margin-top: 12px;
-            text-align: left;
-        }
-        .media-meta-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 6px;
-            font-size: 13px;
-        }
-        .media-meta-label {
-            color: var(--muted);
-            font-weight: 600;
-        }
-        .media-meta-value {
-            font-weight: 700;
-            color: var(--text);
-            max-width: 65%;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 3px 8px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-        .badge-video { background: #e0e7ff; color: #3730a3; }
-        .badge-audio { background: #dcfce7; color: #166534; }
-        .badge-warning { background: #fef3c7; color: #92400e; font-size: 12px; padding: 8px 12px; border-radius: 8px; margin: 10px 0; text-align: left; }
-
-        .format-selector {
-            display: flex;
-            gap: 10px;
-            margin: 14px 0 10px;
-        }
-        .format-option {
-            flex: 1;
-            padding: 12px;
-            border: 2px solid var(--border);
-            border-radius: 10px;
-            text-align: center;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 14px;
-            transition: all 0.2s ease;
-            background: white;
-            user-select: none;
-        }
-        .format-option:hover {
-            border-color: var(--border-hover);
-        }
-        .format-option.active {
-            border-color: var(--primary);
-            background: #eef2ff;
-            color: var(--primary);
-        }
-
-        .media-progress-box {
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 16px;
-            margin-top: 15px;
-            display: none;
-            text-align: center;
-        }
-        .progress-bar-container {
-            height: 10px;
-            background: #e9ecef;
-            border-radius: 5px;
-            overflow: hidden;
-            margin: 10px 0;
-            position: relative;
-        }
-        .progress-bar-fill {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, var(--primary), #6366f1);
-            transition: width 0.2s ease;
-        }
-        .progress-status {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--muted);
-            margin-top: 4px;
-            word-break: break-all;
-        }
-
-        .media-output-box {
-            background: #f0fdf4;
-            border: 1px solid #bbf7d0;
-            border-radius: 12px;
-            padding: 16px;
-            margin-top: 15px;
-            display: none;
-            text-align: center;
-        }
-        .media-output-title {
-            color: #166534;
-            font-weight: 700;
-            font-size: 15px;
-            margin-bottom: 10px;
-        }
-
-        .yt-info-card {
-            background: #fff8f6;
-            border: 1px solid #ffd8d3;
-            border-radius: 12px;
-            padding: 14px;
-            margin-top: 20px;
-            font-size: 12px;
-            line-height: 1.5;
-            text-align: left;
-        }
-        .yt-info-title {
-            font-weight: 700;
-            color: #c92a2a;
-            margin-bottom: 6px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .yt-workflow-steps {
-            margin: 8px 0;
-            padding-left: 20px;
-            color: #495057;
-        }
-        .yt-workflow-steps li {
-            margin-bottom: 4px;
-        }
-        .quick-link-btn {
-            display: inline-block;
-            background: #f1f3f5;
-            color: #495057;
-            padding: 6px 10px;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 11px;
-            text-decoration: none;
-            cursor: pointer;
-            margin-right: 6px;
-            margin-top: 6px;
-            border: 1px solid #dee2e6;
-        }
-        .quick-link-btn:hover {
-            background: #e9ecef;
-            color: var(--primary);
-        }
-
-        /* Responsive tweaks */
-        @media (max-width: 480px) {
-            .container { padding: 20px 16px; }
-            .tabs { gap: 4px; }
-            .tab-btn { font-size: 10px; padding: 8px 1px; }
-            h1 { font-size: 22px; }
-        }
+        .th-chip { display: inline-block; padding: 6px 14px; border: 2px solid var(--th-stroke, #3045AA); border-radius: 20px; background: var(--th-bg, #F4F6FE); color: var(--th-text, #20243A); font-size: 13px; font-weight: 700; }
+        .th-text { margin: 14px 0 0; font-size: 14px; color: var(--th-text, #20243A); }
+        @media (max-width: 420px) { .container { padding: 20px; } .th-row button { padding: 12px 10px; } }
     </style>
 </head>
 <body>
@@ -348,40 +105,36 @@
         <button class="tab-btn" onclick="openTab(this, 'pass-check')">Strength</button>
         <button class="tab-btn" onclick="openTab(this, 'stylish')">Stylish</button>
         <button class="tab-btn" onclick="openTab(this, 'uuid')">UUID</button>
-        <button class="tab-btn" onclick="openTab(this, 'media')">Media</button>
+        <button class="tab-btn" onclick="openTab(this, 'theme')">Theme Colors</button>
     </div>
 
-    <!-- Tool 1: QR Generator -->
     <div id="qr" class="tool-content active">
         <input type="text" id="qrIn" placeholder="URL or Text for QR">
         <button class="btn-main" onclick="genQR()">Get QR Code</button>
         <div class="result-box">
-            <img id="qrImg" class="result-img" alt="QR Code Result">
+            <img id="qrImg" class="result-img">
             <button id="dlQR" class="btn-dl" onclick="dlImg('qrImg', 'qr.png')">Download QR</button>
         </div>
     </div>
 
-    <!-- Tool 2: YouTube Thumbnail Downloader -->
     <div id="yt" class="tool-content">
         <input type="text" id="ytIn" placeholder="Paste YouTube Video Link">
         <button class="btn-main" onclick="genYT()">Get Thumbnail</button>
         <div class="result-box">
-            <img id="ytImg" class="result-img" alt="YouTube Thumbnail">
+            <img id="ytImg" class="result-img">
             <button id="dlYT" class="btn-dl" onclick="dlImg('ytImg', 'thumb.jpg')">Download Image</button>
         </div>
     </div>
 
-    <!-- Tool 3: YouTube Channel Logo Fetcher -->
     <div id="yt-logo" class="tool-content">
         <input type="text" id="logoIn" placeholder="Paste Channel Link or @Handle">
         <button class="btn-main" onclick="genYTLogo()">Get Channel Logo</button>
         <div class="result-box">
-            <img id="logoImg" class="result-img avatar" alt="Channel Logo">
+            <img id="logoImg" class="result-img avatar">
             <button id="dlLogo" class="btn-dl" onclick="dlImg('logoImg', 'channel_logo.jpg')">Download Logo</button>
         </div>
     </div>
 
-    <!-- Tool 4: Password Generator -->
     <div id="pass-gen" class="tool-content">
         <input type="text" id="pgOut" readonly placeholder="Result Password">
         <button class="btn-main" onclick="genPass()">Generate Password</button>
@@ -391,14 +144,12 @@
         </div>
     </div>
 
-    <!-- Tool 5: Password Strength Checker -->
     <div id="pass-check" class="tool-content">
         <input type="password" id="psIn" placeholder="Check strength..." oninput="checkPS()">
         <div class="strength-bar"><div id="psFill" class="strength-fill"></div></div>
         <p id="psTxt" style="font-size: 14px; font-weight: bold; text-align: center; margin-top: 10px;"></p>
     </div>
 
-    <!-- Tool 6: Stylish Text Generator -->
     <div id="stylish" class="tool-content">
         <input type="text" id="stIn" placeholder="Type normal text..." oninput="genStylish()">
         <div class="stylish-res">
@@ -407,132 +158,39 @@
         </div>
     </div>
 
-    <!-- Tool 7: UUID Generator -->
     <div id="uuid" class="tool-content">
         <input type="text" id="uuOut" readonly placeholder="Result UUID">
         <button class="btn-main" onclick="genUUID()">Generate UUID v4</button>
         <button class="btn-copy" onclick="copyU()">Copy to Clipboard</button>
     </div>
 
-    <!-- Tool 8: Media Converter (Real MP4 / MP3 WASM Converter) -->
-    <div id="media" class="tool-content">
-        <!-- Local File Dropzone -->
-        <div class="dropzone" id="mediaDropzone" onclick="document.getElementById('mediaFileInput').click()">
-            <div class="dropzone-icon">📁</div>
-            <div class="dropzone-text">Click or drag & drop media file here</div>
-            <div class="dropzone-sub">Supports MP4, WebM, MKV, AVI, MOV, FLV, MP3, WAV, OGG, M4A, AAC</div>
-            <input type="file" id="mediaFileInput" accept="audio/*,video/*,.mp4,.webm,.mkv,.avi,.mov,.flv,.mp3,.wav,.ogg,.m4a,.aac,.flac" style="display:none" onchange="handleFileSelect(event)">
-        </div>
-
-        <!-- Selected File Metadata Card -->
-        <div id="mediaSelectedCard" class="media-card" style="display:none;">
-            <div class="media-meta-row">
-                <span class="media-meta-label">File:</span>
-                <span class="media-meta-value" id="mediaFileName">-</span>
+    <div id="theme" class="tool-content">
+        <div id="thFields"></div>
+        <button class="btn-main" id="thCopyAll">Copy All HEX Values</button>
+        <textarea id="thOut" rows="4" readonly aria-label="All HEX values"></textarea>
+        <p id="thStatus" class="th-status" role="status" aria-live="polite"></p>
+        <div id="thPreview" class="th-preview">
+            <div class="th-card">
+                <h3 class="th-title">Theme Preview</h3>
+                <span class="th-chip">Stroke + Background</span>
             </div>
-            <div class="media-meta-row">
-                <span class="media-meta-label">Size:</span>
-                <span class="media-meta-value" id="mediaFileSize">-</span>
-            </div>
-            <div class="media-meta-row">
-                <span class="media-meta-label">Duration:</span>
-                <span class="media-meta-value" id="mediaDuration">Calculating...</span>
-            </div>
-            <div class="media-meta-row">
-                <span class="media-meta-label">Type:</span>
-                <span id="mediaTypeBadge" class="badge badge-video">Video</span>
-            </div>
-
-            <!-- Memory / Size Warning Banner -->
-            <div id="mediaSizeWarning" class="badge-warning" style="display:none;">
-                ⚠️ <strong>Large file (>100MB):</strong> In-browser WebAssembly conversion processes files entirely in your browser's memory. For optimal speed and stability, files under 100MB are recommended.
-            </div>
-
-            <!-- Media Preview -->
-            <div id="mediaPreviewContainer" style="margin-top:10px;">
-                <video id="mediaVideoPreview" controls playsinline style="width:100%; border-radius:10px; max-height:220px; background:#000; display:none;"></video>
-                <audio id="mediaAudioPreview" controls style="width:100%; display:none; margin-top:5px;"></audio>
-            </div>
-
-            <!-- Target Format Selection -->
-            <div style="margin-top:14px; font-size:13px; font-weight:700; color:#333;">Select Target Format:</div>
-            <div class="format-selector">
-                <div class="format-option active" id="optMp3" onclick="selectTargetFormat('mp3')">
-                    🎵 MP3 (Audio)
-                </div>
-                <div class="format-option" id="optMp4" onclick="selectTargetFormat('mp4')">
-                    🎬 MP4 (Video)
-                </div>
-            </div>
-
-            <!-- Conversion Action Buttons -->
-            <button class="btn-main" id="startConvertBtn" onclick="startConversion()">Convert to MP3</button>
-            <button class="btn-copy btn-danger" id="cancelConvertBtn" onclick="cancelConversion()" style="display:none; margin-top:6px;">Cancel Conversion</button>
-        </div>
-
-        <!-- Live Conversion Progress Box -->
-        <div id="mediaProgressBox" class="media-progress-box">
-            <div style="display:flex; justify-content:space-between; font-size:13px; font-weight:700;">
-                <span id="progressTitle">Converting media...</span>
-                <span id="progressPercent" style="color:var(--primary);">0%</span>
-            </div>
-            <div class="progress-bar-container">
-                <div id="progressBarFill" class="progress-bar-fill"></div>
-            </div>
-            <div id="progressStatus" class="progress-status">Initializing WebAssembly engine...</div>
-        </div>
-
-        <!-- Conversion Output Box -->
-        <div id="mediaOutputBox" class="media-output-box">
-            <div class="media-output-title">✅ Conversion Complete!</div>
-            <div style="font-size:13px; color:#444; margin-bottom:12px;">
-                Output: <strong id="outputFileName">-</strong> (<span id="outputFileSize">-</span>)
-            </div>
-            
-            <div id="mediaOutputPreviewContainer" style="margin-bottom:12px;">
-                <audio id="mediaAudioOutput" controls style="width:100%; display:none;"></audio>
-                <video id="mediaVideoOutput" controls playsinline style="width:100%; border-radius:8px; max-height:200px; background:#000; display:none;"></video>
-            </div>
-
-            <button id="mediaDownloadBtn" class="btn-dl" style="display:block; width:100%;" onclick="downloadConvertedFile()">Download Converted File</button>
-            <button class="btn-copy" style="margin-top:8px; width:100%; font-size:13px; padding:10px;" onclick="resetMediaConverter()">Convert Another File</button>
-        </div>
-
-        <!-- YouTube Link & Creator Workflow Section -->
-        <div class="yt-info-card">
-            <div class="yt-info-title">
-                <span>📹</span>
-                <span>YouTube Creator Workflow & Link Notice</span>
-            </div>
-            <div style="color:#555; margin-bottom:8px;">
-                Have a video from your channel (e.g. <strong>DevWithWayo</strong>) or external link?
-            </div>
-            <div style="display:flex; gap:6px;">
-                <input type="text" id="ytMediaUrlInput" placeholder="Paste YouTube link or direct media URL..." style="margin:0; padding:10px; font-size:13px;">
-                <button class="btn-main" onclick="checkExternalMediaUrl()" style="width:auto; margin:0; padding:10px 14px; font-size:13px; white-space:nowrap;">Check</button>
-            </div>
-            <div id="ytNoticeResult" style="display:none; margin-top:10px;"></div>
+            <p class="th-text">Sample text using the Text Stroke color on your Background.</p>
         </div>
     </div>
 </div>
 
 <script>
-    /* ==========================================================================
-       WebsTools Hub Core: Tab Switching
-       ========================================================================== */
+    // System: Tab Switcher
     function openTab(btn, id) {
         document.querySelectorAll('.tool-content').forEach(c => c.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
-        const target = document.getElementById(id);
-        if (target) target.classList.add('active');
-        if (btn) btn.classList.add('active');
+        document.getElementById(id).classList.add('active');
+        btn.classList.add('active');
     }
 
-    /* ==========================================================================
-       Tool 1: QR Code Generator
-       ========================================================================== */
+    // Tools Logic
     function genQR() {
-        const val = document.getElementById('qrIn').value.trim();
+        const val = document.getElementById('qrIn').value;
         if(!val) return alert("Enter text!");
         const img = document.getElementById('qrImg');
         img.src = `https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(val)}`;
@@ -540,33 +198,17 @@
         document.getElementById('dlQR').style.display = "block";
     }
 
-    /* ==========================================================================
-       Tool 2: YouTube Thumbnail Downloader
-       ========================================================================== */
     function genYT() {
-        const url = document.getElementById('ytIn').value.trim();
-        // Support standard watch, short youtu.be, shorts, and embed links
-        let id = null;
-        if (url.includes("v=")) {
-            id = url.split("v=")[1].substring(0, 11);
-        } else if (url.includes("youtu.be/")) {
-            id = url.split("youtu.be/")[1]?.substring(0, 11);
-        } else if (url.includes("/shorts/")) {
-            id = url.split("/shorts/")[1]?.substring(0, 11);
-        } else if (url.includes("/embed/")) {
-            id = url.split("/embed/")[1]?.substring(0, 11);
-        }
-        
-        if(!id || id.length < 11) return alert("Invalid YouTube Link. Please check the URL.");
+        const url = document.getElementById('ytIn').value;
+        let id = url.includes("v=") ? url.split("v=")[1].substring(0, 11) : url.split("be/")[1]?.substring(0, 11);
+        if(!id) return alert("Invalid Link");
         const img = document.getElementById('ytImg');
-        img.src = `https://img.youtube.com/vi/${encodeURIComponent(id)}/maxresdefault.jpg`;
+        img.src = `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
         img.style.display = "block";
         document.getElementById('dlYT').style.display = "block";
     }
 
-    /* ==========================================================================
-       Tool 3: YouTube Channel Logo Fetcher
-       ========================================================================== */
+    // ฟังก์ชันแท็บใหม่: ดึงโลโก้ช่อง YouTube
     function genYTLogo() {
         const input = document.getElementById('logoIn').value.trim();
         const img = document.getElementById('logoImg');
@@ -580,7 +222,7 @@
             handle = input.replace('@', '');
         }
 
-        img.src = `https://unavatar.io/youtube/${encodeURIComponent(handle)}`;
+        img.src = `https://unavatar.io/youtube/${handle}`;
         img.style.display = "block";
         dlBtn.style.display = "block";
     }
@@ -590,45 +232,23 @@
             const res = await fetch(document.getElementById(id).src);
             const blob = await res.blob();
             const a = document.createElement("a");
-            const objUrl = URL.createObjectURL(blob);
-            a.href = objUrl; 
-            a.download = name; 
-            a.click();
-            setTimeout(() => URL.revokeObjectURL(objUrl), 1000);
-        } catch(e) { 
-            alert("Error downloading. Right click image instead."); 
-        }
+            a.href = URL.createObjectURL(blob); a.download = name; a.click();
+        } catch(e) { alert("Error downloading. Right click image instead."); }
     }
 
-    /* ==========================================================================
-       Tool 4: Password Generator (Upgraded with crypto.getRandomValues)
-       ========================================================================== */
     function genPass() {
-        const len = parseInt(document.getElementById('pLen').value, 10) || 12;
+        const len = document.getElementById('pLen').value;
         const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
         let res = "";
-        
-        // Cryptographically secure random character selection
-        const randomValues = new Uint32Array(len);
-        crypto.getRandomValues(randomValues);
-        for(let i = 0; i < len; i++) {
-            res += charset.charAt(randomValues[i] % charset.length);
-        }
+        for(let i=0; i<len; i++) res += charset.charAt(Math.floor(Math.random() * charset.length));
         document.getElementById('pgOut').value = res;
     }
 
-    /* ==========================================================================
-       Tool 5: Password Strength Checker
-       ========================================================================== */
     function checkPS() {
         const p = document.getElementById('psIn').value;
         const fill = document.getElementById('psFill');
         let s = 0;
-        if(p.length > 8) s++; 
-        if(/[A-Z]/.test(p)) s++; 
-        if(/[0-9]/.test(p)) s++; 
-        if(/[^A-Za-z0-9]/.test(p)) s++;
-        
+        if(p.length > 8) s++; if(/[A-Z]/.test(p)) s++; if(/[0-9]/.test(p)) s++; if(/[^A-Za-z0-9]/.test(p)) s++;
         const colors = ["#ff4d4d", "#ffa64d", "#ffdb4d", "#2ecc71"];
         fill.style.width = p ? (s+1)*25 + "%" : "0%";
         fill.style.background = colors[s];
@@ -636,583 +256,141 @@
         document.getElementById('psTxt').style.color = colors[s];
     }
 
-    /* ==========================================================================
-       Tool 6: Stylish Text Generator
-       ========================================================================== */
     function genStylish() {
         const t = document.getElementById('stIn').value.toLowerCase();
         const flipM = {"a":"ɐ","b":"q","c":"ɔ","d":"p","e":"ǝ","f":"ɟ","g":"ƃ","h":"ɥ","i":"ᴉ","j":"ɾ","k":"ʞ","l":"l","m":"ɯ","n":"u","o":"o","p":"d","q":"b","r":"ɹ","s":"s","t":"ʇ","u":"n","v":"ʌ","w":"ʍ","x":"x","y":"ʎ","z":"z"};
-        const bubbM = {"a":"ⓐ","b":"ⓑ","c":"ⓒ","d":"ⓓ","e":"ⓔ","f":"ⓕ","g":"ⓖ","h":"ⓗ","i":"ⓘ","j":"ⓙ","k":"ⓚ","l":"ⓛ","m":"ⓜ","n":"ⓝ","o":"ⓞ","p":"ⓟ","q":"ⓠ","r":"ⓡ","s":"ⓢ","t":"ⓣ","u":"ⓤ","v":"ⓥ","w":"ⓦ","x":"ⓧ","y":"ⓨ","z":"z"};
+        const bubbM = {"a":"ⓐ","b":"ⓑ","c":"ⓒ","d":"ⓓ","e":"ⓔ","f":"ⓕ","g":"ⓖ","h":"ⓗ","i":"ⓘ","j":"ⓙ","k":"ⓚ","l":"ⓛ","m":"ⓜ","n":"ⓝ","o":"ⓞ","p":"ⓟ","q":"ⓠ","r":"ⓡ","s":"ⓢ","t":"ⓣ","u":"ⓤ","v":"ⓥ","w":"ⓦ","x":"ⓧ","y":"ⓨ","z":"ⓩ"};
         document.getElementById('stFlip').innerText = t.split('').map(c => flipM[c] || c).reverse().join('') || "(Result)";
         document.getElementById('stBubb').innerText = t.split('').map(c => bubbM[c] || c).join('') || "(Result)";
     }
 
-    /* ==========================================================================
-       Tool 7: UUID Generator
-       ========================================================================== */
     function genUUID() {
-        document.getElementById('uuOut').value = ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c => 
-            (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-        );
+        document.getElementById('uuOut').value = ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c => (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
     }
 
     function copyU() {
         const v = document.getElementById('uuOut').value;
-        if(v) { 
-            navigator.clipboard.writeText(v).then(() => {
-                alert("UUID Copied!"); 
-            }).catch(() => {
-                alert("Copied: " + v);
+        if(v) { navigator.clipboard.writeText(v); alert("UUID Copied!"); }
+    }
+
+    // Theme Colors tool (all logic runs locally in the browser)
+    const TH_ROWS = [['main','Main Theme'], ['stroke','Stroke'], ['bg','Background'], ['text','Text Stroke']];
+    const thState = {};
+    let thTimer;
+
+    function thNorm(v) { const m = /^#?([0-9a-f]{6})$/i.exec(String(v).trim()); return m ? '#' + m[1].toUpperCase() : null; }
+    function thRgb(h) { const n = parseInt(h.slice(1), 16); return [n >> 16 & 255, n >> 8 & 255, n & 255]; }
+    function thHex(r, g, b) { return '#' + [r, g, b].map(x => Math.max(0, Math.min(255, Math.round(x))).toString(16).padStart(2, '0')).join('').toUpperCase(); }
+    function thToHsl(hex) {
+        const [r, g, b] = thRgb(hex).map(v => v / 255);
+        const max = Math.max(r, g, b), min = Math.min(r, g, b), d = max - min, l = (max + min) / 2;
+        let h = 0, s = 0;
+        if (d) {
+            s = d / (1 - Math.abs(2 * l - 1));
+            h = max === r ? ((g - b) / d) % 6 : max === g ? (b - r) / d + 2 : (r - g) / d + 4;
+            h = (h * 60 + 360) % 360;
+        }
+        return [h, s, l];
+    }
+    function thFromHsl(h, s, l) {
+        const c = (1 - Math.abs(2 * l - 1)) * s, x = c * (1 - Math.abs((h / 60) % 2 - 1)), m = l - c / 2;
+        const i = Math.floor(h / 60) % 6;
+        const [r, g, b] = [[c,x,0],[x,c,0],[0,c,x],[0,x,c],[x,0,c],[c,0,x]][i];
+        return thHex((r + m) * 255, (g + m) * 255, (b + m) * 255);
+    }
+    function thLum(hex) {
+        const [r, g, b] = thRgb(hex).map(v => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); });
+        return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+    }
+    function thContrast(a, b) { const x = thLum(a), y = thLum(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); }
+
+    // Same hue family: stroke = darker (or lighter if main is very dark), background = pale tint,
+    // text stroke = deep tone darkened until it reaches 7:1 contrast against the background.
+    function thPalette(main) {
+        const [h, s, l] = thToHsl(main);
+        const stroke = l > 0.2 ? thFromHsl(h, s, Math.max(0.08, l - 0.22)) : thFromHsl(h, s, Math.min(0.9, l + 0.25));
+        const bg = thFromHsl(h, Math.min(s, 0.85), 0.96);
+        let tl = 0.17, text = thFromHsl(h, Math.min(s, 0.5), tl);
+        while (thContrast(text, bg) < 7 && tl > 0.02) { tl -= 0.01; text = thFromHsl(h, Math.min(s, 0.5), tl); }
+        return { stroke, bg, text };
+    }
+
+    function thStatus(msg, ok) {
+        const el = document.getElementById('thStatus');
+        el.textContent = msg; el.className = 'th-status ' + (ok ? 'ok' : 'err');
+        clearTimeout(thTimer);
+        if (ok) thTimer = setTimeout(() => { el.textContent = ''; }, 2500);
+    }
+
+    function thRender() {
+        const pv = document.getElementById('thPreview');
+        TH_ROWS.forEach(([k]) => pv.style.setProperty('--th-' + k, thState[k]));
+        document.getElementById('thOut').value = TH_ROWS.map(([k, label]) => label + ': ' + thState[k]).join('\n');
+    }
+
+    function thApply(k, hex) {
+        thState[k] = hex;
+        const pick = document.getElementById('th-' + k + '-pick'), inp = document.getElementById('th-' + k + '-hex');
+        pick.value = hex.toLowerCase(); inp.value = hex; inp.classList.remove('invalid');
+        document.getElementById('th-' + k + '-msg').textContent = '';
+    }
+
+    function thSetMain(hex) {
+        thApply('main', hex);
+        const pal = thPalette(hex);
+        thApply('stroke', pal.stroke); thApply('bg', pal.bg); thApply('text', pal.text);
+        thRender();
+    }
+
+    function thSet(k, hex) {
+        if (k === 'main') thSetMain(hex); else { thApply(k, hex); thRender(); }
+    }
+
+    function thCopy(text, srcEl, label) {
+        const ok = () => thStatus(label + ' copied!', true);
+        const legacy = () => {
+            try { srcEl.focus(); srcEl.select(); if (document.execCommand('copy')) ok(); else fail(); } catch (e) { fail(); }
+        };
+        const fail = () => { try { srcEl.focus(); srcEl.select(); } catch (e) {} thStatus('Copy failed. The text is selected: press Ctrl+C (Cmd+C on Mac).', false); };
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(ok, legacy);
+        else legacy();
+    }
+
+    function thInit() {
+        document.getElementById('thFields').innerHTML = TH_ROWS.map(([k, label]) =>
+            `<div class="th-field"><label for="th-${k}-hex">${label}</label>
+             <div class="th-row">
+                <input type="color" id="th-${k}-pick" aria-label="${label} color picker">
+                <input type="text" id="th-${k}-hex" maxlength="7" spellcheck="false" autocomplete="off">
+                <button class="btn-copy" id="th-${k}-copy">Copy</button>
+             </div>
+             <small class="th-msg" id="th-${k}-msg" role="alert"></small></div>`).join('');
+
+        TH_ROWS.forEach(([k, label]) => {
+            const pick = document.getElementById('th-' + k + '-pick'), inp = document.getElementById('th-' + k + '-hex');
+            pick.addEventListener('input', () => thSet(k, pick.value.toUpperCase()));
+            inp.addEventListener('input', () => {
+                const n = thNorm(inp.value);
+                if (!n) {
+                    inp.classList.add('invalid');
+                    document.getElementById('th-' + k + '-msg').textContent = 'Enter a 6-digit HEX color, like #4361EE.';
+                    return;
+                }
+                thSet(k, n);
             });
-        }
-    }
-
-    /* ==========================================================================
-       Tool 8: Media Converter (Real In-Browser FFmpeg.wasm Engine)
-       ========================================================================== */
-    let currentFile = null;
-    let currentPreviewUrl = null;
-    let convertedBlobUrl = null;
-    let convertedFileName = null;
-    let selectedFormat = 'mp3'; // 'mp3' or 'mp4'
-    let ffmpegInstance = null;
-    let isConverting = false;
-    let shouldCancel = false;
-
-    // Drag and drop handlers
-    const dropzone = document.getElementById('mediaDropzone');
-    if (dropzone) {
-        ['dragenter', 'dragover'].forEach(eventName => {
-            dropzone.addEventListener(eventName, (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                dropzone.classList.add('dragover');
-            }, false);
+            inp.addEventListener('blur', () => { if (inp.classList.contains('invalid')) thApply(k, thState[k]); });
+            document.getElementById('th-' + k + '-copy').addEventListener('click', () => {
+                thApply(k, thState[k]); // restore any half-typed text so the selected text matches what is copied
+                thCopy(thState[k], inp, label);
+            });
         });
-
-        ['dragleave', 'drop'].forEach(eventName => {
-            dropzone.addEventListener(eventName, (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                dropzone.classList.remove('dragover');
-            }, false);
+        document.getElementById('thCopyAll').addEventListener('click', () => {
+            const out = document.getElementById('thOut');
+            thCopy(out.value, out, 'All HEX values');
         });
-
-        dropzone.addEventListener('drop', (e) => {
-            const dt = e.dataTransfer;
-            const files = dt.files;
-            if (files && files.length > 0) {
-                processSelectedMedia(files[0]);
-            }
-        }, false);
+        thSetMain('#4361EE');
     }
-
-    function handleFileSelect(e) {
-        const file = e.target.files[0];
-        if (file) {
-            processSelectedMedia(file);
-        }
-    }
-
-    function formatBytes(bytes) {
-        if (!bytes || bytes === 0) return '0 Bytes';
-        const k = 1024;
-        const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-        const i = Math.floor(Math.log(bytes) / Math.log(k));
-        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-    }
-
-    function formatDuration(seconds) {
-        if (!seconds || isNaN(seconds) || !isFinite(seconds)) return 'Unknown';
-        const mins = Math.floor(seconds / 60);
-        const secs = Math.floor(seconds % 60);
-        return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-    }
-
-    function processSelectedMedia(file) {
-        if (!file) return;
-
-        // Cleanup prior URLs
-        if (currentPreviewUrl) {
-            URL.revokeObjectURL(currentPreviewUrl);
-            currentPreviewUrl = null;
-        }
-        if (convertedBlobUrl) {
-            URL.revokeObjectURL(convertedBlobUrl);
-            convertedBlobUrl = null;
-        }
-
-        currentFile = file;
-
-        // Reset UI states
-        document.getElementById('mediaProgressBox').style.display = 'none';
-        document.getElementById('mediaOutputBox').style.display = 'none';
-        document.getElementById('mediaSelectedCard').style.display = 'block';
-
-        // Display Metadata
-        document.getElementById('mediaFileName').textContent = file.name;
-        document.getElementById('mediaFileSize').textContent = formatBytes(file.size);
-        document.getElementById('mediaDuration').textContent = 'Loading...';
-
-        // Check file size warning (> 100 MB)
-        const sizeWarningEl = document.getElementById('mediaSizeWarning');
-        if (file.size > 100 * 1024 * 1024) {
-            sizeWarningEl.style.display = 'block';
-        } else {
-            sizeWarningEl.style.display = 'none';
-        }
-
-        const isVideo = file.type.startsWith('video/') || /\.(mp4|webm|mkv|avi|mov|flv|wmv|m4v)$/i.test(file.name);
-        const isAudio = file.type.startsWith('audio/') || /\.(mp3|wav|ogg|m4a|aac|flac|wma)$/i.test(file.name);
-
-        const typeBadge = document.getElementById('mediaTypeBadge');
-        const vPreview = document.getElementById('mediaVideoPreview');
-        const aPreview = document.getElementById('mediaAudioPreview');
-
-        currentPreviewUrl = URL.createObjectURL(file);
-
-        if (isVideo) {
-            typeBadge.textContent = 'Video';
-            typeBadge.className = 'badge badge-video';
-            vPreview.src = currentPreviewUrl;
-            vPreview.style.display = 'block';
-            aPreview.style.display = 'none';
-
-            vPreview.onloadedmetadata = () => {
-                document.getElementById('mediaDuration').textContent = formatDuration(vPreview.duration);
-            };
-            vPreview.onerror = () => {
-                document.getElementById('mediaDuration').textContent = 'Preview unavailable';
-            };
-
-            // Allow choosing MP3 (extract audio) or MP4 (convert video)
-            document.getElementById('optMp4').style.opacity = '1';
-            document.getElementById('optMp4').style.pointerEvents = 'auto';
-            selectTargetFormat('mp3'); // Default to MP3
-        } else {
-            typeBadge.textContent = 'Audio';
-            typeBadge.className = 'badge badge-audio';
-            aPreview.src = currentPreviewUrl;
-            aPreview.style.display = 'block';
-            vPreview.style.display = 'none';
-
-            aPreview.onloadedmetadata = () => {
-                document.getElementById('mediaDuration').textContent = formatDuration(aPreview.duration);
-            };
-            aPreview.onerror = () => {
-                document.getElementById('mediaDuration').textContent = 'Preview unavailable';
-            };
-
-            // Audio files cannot be converted to MP4 without video stream; lock to MP3
-            selectTargetFormat('mp3');
-            document.getElementById('optMp4').style.opacity = '0.4';
-            document.getElementById('optMp4').style.pointerEvents = 'none';
-        }
-    }
-
-    function selectTargetFormat(fmt) {
-        selectedFormat = fmt;
-        const optMp3 = document.getElementById('optMp3');
-        const optMp4 = document.getElementById('optMp4');
-        const convertBtn = document.getElementById('startConvertBtn');
-
-        if (fmt === 'mp3') {
-            optMp3.classList.add('active');
-            optMp4.classList.remove('active');
-            convertBtn.textContent = 'Convert to MP3';
-        } else {
-            optMp4.classList.add('active');
-            optMp3.classList.remove('active');
-            convertBtn.textContent = 'Convert to MP4';
-        }
-    }
-
-    /* --------------------------------------------------------------------------
-       Dynamic FFmpeg.wasm Engine Loader
-       Loads local vendor ESM assets if available, with automatic CDN fallback.
-       -------------------------------------------------------------------------- */
-    async function getFFmpegEngine() {
-        if (ffmpegInstance && ffmpegInstance.loaded) {
-            return ffmpegInstance;
-        }
-
-        let FFmpegClass = null;
-        let toBlobURLFn = null;
-
-        // 1. Resolve FFmpeg and toBlobURL from local vendor or CDN
-        try {
-            const ffmpegModule = await import('./vendor/esm/ffmpeg/index.js');
-            const utilModule = await import('./vendor/esm/util/index.js');
-            FFmpegClass = ffmpegModule.FFmpeg;
-            toBlobURLFn = utilModule.toBlobURL;
-        } catch (localErr) {
-            console.warn('Local vendor ESM not found, loading from CDN...', localErr);
-            try {
-                const ffmpegModule = await import('https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.15/+esm');
-                const utilModule = await import('https://cdn.jsdelivr.net/npm/@ffmpeg/util@0.12.15/+esm');
-                FFmpegClass = ffmpegModule.FFmpeg;
-                toBlobURLFn = utilModule.toBlobURL;
-            } catch (cdnErr) {
-                throw new Error('Failed to load FFmpeg library from both local vendor and CDN: ' + cdnErr.message);
-            }
-        }
-
-        updateConversionProgress(5, 'Initializing WebAssembly worker...');
-        const ffmpeg = new FFmpegClass();
-
-        // Attach listeners
-        ffmpeg.on('log', ({ message }) => {
-            console.log('[FFmpeg]', message);
-            if (isConverting) {
-                // Surface meaningful encoder status in the UI
-                if (message.includes('frame=') || message.includes('size=')) {
-                    document.getElementById('progressStatus').textContent = message.trim();
-                }
-            }
-        });
-
-        ffmpeg.on('progress', ({ progress, time }) => {
-            if (isConverting && progress >= 0 && progress <= 1) {
-                const pct = Math.min(99, Math.max(10, Math.round(progress * 100)));
-                updateConversionProgress(pct, `Transcoding media (${pct}%)...`);
-            }
-        });
-
-        // 2. Resolve Core JS and WASM binaries
-        let coreURL = null;
-        let wasmURL = null;
-
-        try {
-            // Check if local vendor files are accessible
-            const checkRes = await fetch('./vendor/esm/core/ffmpeg-core.js', { method: 'HEAD' });
-            if (checkRes.ok) {
-                coreURL = await toBlobURLFn('./vendor/esm/core/ffmpeg-core.js', 'text/javascript');
-                wasmURL = await toBlobURLFn('./vendor/esm/core/ffmpeg-core.wasm', 'application/wasm');
-            } else {
-                throw new Error('Local core files returned non-OK status');
-            }
-        } catch (coreLocalErr) {
-            console.warn('Using CDN fallback for ffmpeg-core binaries...');
-            const cdnBase = 'https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.10/dist/esm';
-            coreURL = await toBlobURLFn(`${cdnBase}/ffmpeg-core.js`, 'text/javascript');
-            wasmURL = await toBlobURLFn(`${cdnBase}/ffmpeg-core.wasm`, 'application/wasm');
-        }
-
-        updateConversionProgress(15, 'Loading WebAssembly core binaries into browser...');
-        await ffmpeg.load({
-            coreURL,
-            wasmURL
-        });
-
-        ffmpegInstance = ffmpeg;
-        return ffmpeg;
-    }
-
-    function updateConversionProgress(percent, statusText) {
-        const fill = document.getElementById('progressBarFill');
-        const pctEl = document.getElementById('progressPercent');
-        const statEl = document.getElementById('progressStatus');
-
-        if (fill) fill.style.width = percent + '%';
-        if (pctEl) pctEl.textContent = percent + '%';
-        if (statEl && statusText) statEl.textContent = statusText;
-    }
-
-    /* --------------------------------------------------------------------------
-       Conversion Execution Handler
-       -------------------------------------------------------------------------- */
-    async function startConversion() {
-        if (!currentFile) return alert('Please select a media file first.');
-        if (isConverting) return;
-
-        isConverting = true;
-        shouldCancel = false;
-
-        const convertBtn = document.getElementById('startConvertBtn');
-        const cancelBtn = document.getElementById('cancelConvertBtn');
-        const progressBox = document.getElementById('mediaProgressBox');
-        const outputBox = document.getElementById('mediaOutputBox');
-
-        convertBtn.disabled = true;
-        convertBtn.style.opacity = '0.6';
-        cancelBtn.style.display = 'block';
-        progressBox.style.display = 'block';
-        outputBox.style.display = 'none';
-
-        updateConversionProgress(0, 'Preparing media engine...');
-
-        // Sanitize input extension and construct virtual filenames
-        const originalName = currentFile.name;
-        const baseName = originalName.substring(0, originalName.lastIndexOf('.')) || originalName;
-        const cleanBase = baseName.replace(/[^a-zA-Z0-9_-]/g, '_');
-        const inputExt = (originalName.split('.').pop() || 'dat').toLowerCase();
-        const virtualInput = `input_${Date.now()}.${inputExt}`;
-        const targetExt = selectedFormat;
-        const virtualOutput = `output_${Date.now()}.${targetExt}`;
-        const finalDownloadName = `${cleanBase}_converted.${targetExt}`;
-
-        let ffmpeg = null;
-
-        try {
-            ffmpeg = await getFFmpegEngine();
-
-            if (shouldCancel) throw new Error('Conversion cancelled by user.');
-
-            updateConversionProgress(20, 'Reading file into memory...');
-            const fileBuffer = await currentFile.arrayBuffer();
-            const fileBytes = new Uint8Array(fileBuffer);
-
-            if (shouldCancel) throw new Error('Conversion cancelled by user.');
-
-            updateConversionProgress(25, 'Writing to virtual filesystem...');
-            await ffmpeg.writeFile(virtualInput, fileBytes);
-
-            updateConversionProgress(30, 'Configuring FFmpeg encoder parameters...');
-
-            let ffmpegArgs = [];
-            if (targetExt === 'mp3') {
-                // High quality MP3 encoding, stripping video
-                ffmpegArgs = [
-                    '-i', virtualInput,
-                    '-vn',
-                    '-c:a', 'libmp3lame',
-                    '-b:a', '192k',
-                    '-ar', '44100',
-                    virtualOutput
-                ];
-            } else {
-                // Fast standard MP4 encoding with H.264 ultrafast preset & AAC audio
-                ffmpegArgs = [
-                    '-i', virtualInput,
-                    '-c:v', 'libx264',
-                    '-preset', 'ultrafast',
-                    '-crf', '26',
-                    '-c:a', 'aac',
-                    '-b:a', '128k',
-                    '-pix_fmt', 'yuv420p',
-                    virtualOutput
-                ];
-            }
-
-            updateConversionProgress(35, 'Encoding media stream...');
-            console.log('Executing FFmpeg command:', ffmpegArgs.join(' '));
-            
-            const exitCode = await ffmpeg.exec(ffmpegArgs);
-            console.log('FFmpeg exit code:', exitCode);
-
-            if (shouldCancel) throw new Error('Conversion cancelled by user.');
-
-            if (exitCode !== 0) {
-                throw new Error(`FFmpeg encoder returned exit code ${exitCode}. Check console logs for details.`);
-            }
-
-            updateConversionProgress(95, 'Reading converted output...');
-            const outputData = await ffmpeg.readFile(virtualOutput);
-
-            if (!outputData || outputData.length === 0) {
-                throw new Error('Conversion produced an empty file. The input codec may be unsupported.');
-            }
-
-            // Cleanup virtual files to free memory
-            try {
-                await ffmpeg.deleteFile(virtualInput);
-                await ffmpeg.deleteFile(virtualOutput);
-            } catch (cleanupErr) {
-                console.warn('VFS cleanup error:', cleanupErr);
-            }
-
-            // Construct download Blob
-            const mimeType = targetExt === 'mp3' ? 'audio/mpeg' : 'video/mp4';
-            const convertedBlob = new Blob([outputData.buffer], { type: mimeType });
-            
-            if (convertedBlobUrl) URL.revokeObjectURL(convertedBlobUrl);
-            convertedBlobUrl = URL.createObjectURL(convertedBlob);
-            convertedFileName = finalDownloadName;
-
-            updateConversionProgress(100, 'Conversion successful!');
-
-            // Display Output
-            setTimeout(() => {
-                progressBox.style.display = 'none';
-                outputBox.style.display = 'block';
-
-                document.getElementById('outputFileName').textContent = finalDownloadName;
-                document.getElementById('outputFileSize').textContent = formatBytes(convertedBlob.size);
-
-                const outAudio = document.getElementById('mediaAudioOutput');
-                const outVideo = document.getElementById('mediaVideoOutput');
-
-                if (targetExt === 'mp3') {
-                    outAudio.src = convertedBlobUrl;
-                    outAudio.style.display = 'block';
-                    outVideo.style.display = 'none';
-                } else {
-                    outVideo.src = convertedBlobUrl;
-                    outVideo.style.display = 'block';
-                    outAudio.style.display = 'none';
-                }
-            }, 400);
-
-        } catch (err) {
-            console.error('Conversion failed:', err);
-            progressBox.style.display = 'none';
-            alert('Conversion failed: ' + err.message);
-
-            // If terminated or cancelled, reset ffmpeg instance
-            if (ffmpegInstance) {
-                try {
-                    ffmpegInstance.terminate();
-                } catch(e) {}
-                ffmpegInstance = null;
-            }
-        } finally {
-            isConverting = false;
-            convertBtn.disabled = false;
-            convertBtn.style.opacity = '1';
-            cancelBtn.style.display = 'none';
-        }
-    }
-
-    function cancelConversion() {
-        if (!isConverting) return;
-        if (!confirm('Are you sure you want to cancel the conversion?')) return;
-
-        shouldCancel = true;
-        document.getElementById('progressStatus').textContent = 'Cancelling conversion and freeing memory...';
-
-        if (ffmpegInstance) {
-            try {
-                ffmpegInstance.terminate();
-            } catch(e) {}
-            ffmpegInstance = null;
-        }
-
-        isConverting = false;
-        document.getElementById('mediaProgressBox').style.display = 'none';
-        document.getElementById('startConvertBtn').disabled = false;
-        document.getElementById('startConvertBtn').style.opacity = '1';
-        document.getElementById('cancelConvertBtn').style.display = 'none';
-    }
-
-    function downloadConvertedFile() {
-        if (!convertedBlobUrl || !convertedFileName) return;
-        const a = document.createElement('a');
-        a.href = convertedBlobUrl;
-        a.download = convertedFileName;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-    }
-
-    function resetMediaConverter() {
-        if (currentPreviewUrl) {
-            URL.revokeObjectURL(currentPreviewUrl);
-            currentPreviewUrl = null;
-        }
-        if (convertedBlobUrl) {
-            URL.revokeObjectURL(convertedBlobUrl);
-            convertedBlobUrl = null;
-        }
-        currentFile = null;
-        convertedFileName = null;
-        document.getElementById('mediaFileInput').value = '';
-        document.getElementById('mediaSelectedCard').style.display = 'none';
-        document.getElementById('mediaProgressBox').style.display = 'none';
-        document.getElementById('mediaOutputBox').style.display = 'none';
-    }
-
-    /* ==========================================================================
-       YouTube Link Checker & DevWithWayo Workflow Handler
-       ========================================================================== */
-    async function checkExternalMediaUrl() {
-        const inputUrl = document.getElementById('ytMediaUrlInput').value.trim();
-        const resBox = document.getElementById('ytNoticeResult');
-        if (!inputUrl) return alert('Please enter a URL to check.');
-
-        resBox.style.display = 'block';
-
-        const isYouTube = inputUrl.includes('youtube.com/') || inputUrl.includes('youtu.be/');
-
-        if (isYouTube) {
-            // Legitimate explanation & channel workflow
-            resBox.innerHTML = `
-                <div style="background:#fff; border:1px solid #ffd8d3; border-radius:8px; padding:12px; margin-top:8px;">
-                    <div style="font-weight:bold; color:#c92a2a; margin-bottom:6px;">ℹ️ YouTube Media Notice:</div>
-                    <p style="margin:0 0 8px; color:#495057;">
-                        YouTube streams are dynamic (DASH/HLS chunked) and protected by browser Cross-Origin (CORS) security. Browsers cannot directly scrape or download raw video streams from YouTube watch URLs without third-party proxy circumvention, which violates YouTube Terms of Service.
-                    </p>
-                    <div style="font-weight:bold; color:#333; margin-bottom:4px;">Recommended Creator Workflow (for DevWithWayo & channel managers):</div>
-                    <ol class="yt-workflow-steps">
-                        <li>Open <a href="https://studio.youtube.com" target="_blank" rel="noopener" style="color:var(--primary); font-weight:bold;">YouTube Studio</a> and navigate to <strong>Content</strong>.</li>
-                        <li>Click the <strong>Options menu (⋮)</strong> next to your video and select <strong>Download</strong> to get the original MP4.</li>
-                        <li>Drop the downloaded file into the <strong>Local Media Converter</strong> above to convert to MP3 or MP4 locally in seconds!</li>
-                    </ol>
-                    <div style="margin-top:8px;">
-                        <span style="font-size:11px; color:#777;">Looking for graphics instead?</span><br>
-                        <button class="quick-link-btn" onclick="transferUrlTo('yt', '${encodeURIComponent(inputUrl)}')">🖼️ Get Thumbnail</button>
-                        <button class="quick-link-btn" onclick="transferUrlTo('yt-logo', '${encodeURIComponent(inputUrl)}')">👤 Get Channel Logo</button>
-                    </div>
-                </div>
-            `;
-        } else {
-            // Direct media URL check (e.g., https://example.com/audio.mp3)
-            try {
-                const parsed = new URL(inputUrl);
-                if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
-                    throw new Error('Only HTTP and HTTPS URLs are supported.');
-                }
-
-                resBox.innerHTML = `
-                    <div style="background:#fff; border:1px solid #c7d2fe; border-radius:8px; padding:10px; margin-top:8px;">
-                        <div style="font-weight:bold; color:var(--primary); margin-bottom:4px;">Direct Media Link Detected:</div>
-                        <div style="color:#555; font-size:12px; margin-bottom:8px;">Would you like to fetch this remote file into the Media Converter? (Subject to remote server CORS permission).</div>
-                        <button class="btn-main" style="padding:8px 12px; font-size:12px;" onclick="fetchDirectMedia('${encodeURIComponent(inputUrl)}')">📥 Load into Converter</button>
-                    </div>
-                `;
-            } catch (e) {
-                resBox.innerHTML = `
-                    <div style="background:#fee2e2; color:#b91c1c; border-radius:8px; padding:8px 12px; margin-top:8px; font-size:12px;">
-                        Invalid URL. Please enter a valid web link.
-                    </div>
-                `;
-            }
-        }
-    }
-
-    function transferUrlTo(tabId, encodedUrl) {
-        const decoded = decodeURIComponent(encodedUrl);
-        if (tabId === 'yt') {
-            document.getElementById('ytIn').value = decoded;
-            openTab(document.querySelectorAll('.tab-btn')[1], 'yt');
-            genYT();
-        } else if (tabId === 'yt-logo') {
-            document.getElementById('logoIn').value = decoded;
-            openTab(document.querySelectorAll('.tab-btn')[2], 'yt-logo');
-            genYTLogo();
-        }
-    }
-
-    async function fetchDirectMedia(encodedUrl) {
-        const url = decodeURIComponent(encodedUrl);
-        const resBox = document.getElementById('ytNoticeResult');
-        resBox.innerHTML = '<div style="color:var(--primary); font-size:12px; padding:8px;">Fetching remote media file...</div>';
-
-        try {
-            const resp = await fetch(url);
-            if (!resp.ok) throw new Error(`HTTP error ${resp.status}`);
-            const blob = await resp.blob();
-            const fileName = url.split('/').pop().split('?')[0] || 'remote_media';
-            const file = new File([blob], fileName, { type: blob.type });
-            processSelectedMedia(file);
-            resBox.innerHTML = '<div style="color:#166534; font-size:12px; padding:8px;">✅ File successfully loaded into converter!</div>';
-        } catch (err) {
-            resBox.innerHTML = `
-                <div style="background:#fee2e2; color:#b91c1c; border-radius:8px; padding:8px 12px; font-size:12px;">
-                    Failed to fetch remote media: ${err.message}. The server may have blocked Cross-Origin (CORS) access. Please download the file to your device and select it above.
-                </div>
-            `;
-        }
-    }
+    thInit();
 </script>
 </body>
 </html>
